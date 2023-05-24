@@ -20,3 +20,10 @@ class Conta:
             print("Transferência realizada!")
         else:
             print("Saldo insuficiente!")
+
+    def depositar(self, valor):
+        if valor > 0:
+            self.saldo += valor
+            print("Depósito realizado!")
+        else:
+            print("Valor inserido é inválido!")

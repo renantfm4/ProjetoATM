@@ -21,3 +21,10 @@ print("Extrato atual da conta destinatário:", conta_destinatario.extrato)
 # Acessar os atributos atualizados
 #print("Saldo atual:", minha_conta.saldo)
 #print("Extrato atual:", minha_conta.extrato)
+
+
+# Chamar a função depositar() para fazer um depósito
+#minha_conta.depositar(valor=300)
+
+# Acessar o saldo atualizado
+#print("Saldo atual:", minha_conta.saldo)
