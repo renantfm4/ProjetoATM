@@ -13,14 +13,6 @@ class Conta:
         else:
             print("Saldo insuficiente!")
 
-    def transferir(self, valor, destinatario):
-        if valor > 0 and valor <= self.saldo + self.limite:
-            self.saldo -= valor
-            destinatario.saldo += valor
-            print("Transferência realizada!")
-        else:
-            print("Saldo insuficiente!")
-
     def depositar(self, valor):
         if valor > 0:
             self.saldo += valor
