@@ -6,14 +6,17 @@ class Conta:
         self.limite = limite
         self.extrato = extrato
 
-    def sacar(self, saldo, limite, valor):
-        super().__init__(limite,saldo)
-        self.saldo = saldo
-        self.limite = limite
+    def sacar(self, valor):
         if valor > 0 and valor <= self.saldo + self.limite:
             self.saldo -= valor
-            print("Saque realizado")
+            print("Saque realizado!")
         else:
-            print("Saldo insuficiente")
+            print("Saldo insuficiente!")
 
-    
+    def transferir(self, valor, destinatario):
+        if valor > 0 and valor <= self.saldo + self.limite:
+            self.saldo -= valor
+            destinatario.saldo += valor
+            print("Transferência realizada!")
+        else:
+            print("Saldo insuficiente!")
