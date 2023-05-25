@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime,date
 
 class Conta:
     def __init__(self, senha, instituicao, saldo, limite, extrato):
@@ -42,4 +42,25 @@ class Conta:
            # print("Pagamento programado realizado!")
         #else:
           #  print("Fora do horário para o pagamento!")
+
+    def SolicitarCredito(self):
+        valor_credito = float(input("Digite o valor do crédito: "))
+        data_programada_str = input("Digite a data programada (no formato 'DD-MM-AAAA'): ")
+        try:
+            dia, mes, ano = map(int, data_programada_str.split('-'))
+            data_programada = date(ano, mes, dia)
+            data_atual = date.today()
+            if valor_credito > 0 and data_programada >= data_atual:
+                data_corrigida = data_programada.strftime("%d-%m-%Y")
+                print(f"Solicitação de crédito no valor de {valor_credito} R$ para a data {data_corrigida} realizada!")
+            else:
+                print("Valor ou data inválida para solicitar crédito!")
+            if data_atual.strftime("%Y-%m-%d") == data_programada.strftime("%Y-%m-%d"):
+                self.saldo += valor_credito  
+                data_corrigida = data_programada.strftime("%d-%m-%Y")
+                print(f"Solicitação de crédito no valor de {valor_credito} R$ inserida ao banco!")
+            else: 
+                print(f"Quando a data fornecida: {data_corrigida} chegar, será inserida ao banco o valor!")
+        except ValueError:
+            print("Data fornecida é inválida!")
 
