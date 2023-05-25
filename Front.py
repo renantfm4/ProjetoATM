@@ -1,6 +1,7 @@
 # ESSE ARQUIVO ESTÁ SENDO APENAS NO MOMENTO PRA TESTAR O FRONT
 
 from Conta import Conta
+import datetime
 
 # Criar instância da classe Conta
 minha_conta = Conta(senha="senha123", instituicao="Banco XYZ", saldo=1000, limite=500, extrato=[])
@@ -20,3 +21,5 @@ print("Extrato atual:", minha_conta.extrato)
 
 # Acessar o saldo atualizado
 #print("Saldo atual:", minha_conta.saldo)
+
+minha_conta.PagamentoProgramado()
