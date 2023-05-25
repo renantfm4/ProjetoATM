@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class Conta:
     def __init__(self, senha, instituicao, saldo, limite, extrato):
         self.senha = senha
@@ -19,3 +21,14 @@ class Conta:
             print("Depósito realizado!")
         else:
             print("Valor inserido é inválido!")
+
+    def PagamentoProgramado(self):
+        a = datetime.now()
+        hora_atual = a.strftime("%H:%M")
+        print("Hora atual: ", hora_atual)
+        self.valor = input("Entre com valor: ")
+        if hora_atual == self.valor:
+            print("Pagamento programado realizado!")
+        else:
+            print("Fora do horário para o pagamento!")
+
