@@ -32,6 +32,3 @@ print("Saldo atual da minha conta:", minha_conta.saldo)
 print("Saldo atual da conta destinatário:", conta_destinatario.saldo)
 print("Extrato atual da minha conta:", minha_conta.extrato)
 print("Extrato atual da conta destinatário:", conta_destinatario.extrato)
-
-
-#minha_conta.PagamentoProgramado()
