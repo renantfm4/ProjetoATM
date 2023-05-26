@@ -1,17 +1,31 @@
 import json
 
 
+with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json",  encoding="utf-8") as arquivo:
+            dados = json.load(arquivo)
 
 class Gerente():
 #Criação da classe gerente para melhor visualização, focar na classe conta e usuário!!!
     def RegistrarConta():
-        #nome, cpf, telefone, endereco = input("Insira os dados do cliente!").split(" ")
-        #dados = f'{nome}, {cpf}, {telefone}, {endereco}'
-        with open("Banco.json", encoding="utf-8") as arquivo:
-            dados = json.load(arquivo)
-        print(dados)
+
+        nome, cpf, telefone, endereco = input("Insira os dados do cliente! (nome), (cpf), (telefone), (endereco)").split(" ")               
+
+        carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+        dados.append({"nome":nome, "cpf":cpf, "telefone":telefone, "endereco":endereco})
+        json.dump(dados, carregar_arquivo, indent=6)
+
+        
+        
+         
+
     def deletarConta():
-        pass
+        nome, senha = input("Coloque o nome do cliente e suas senha para a remoção").split(" ")
+
+        for i in dados:
+            print(dados[i])
+
+
+
     def ListarContas():
         pass
 
@@ -23,4 +37,4 @@ class Usuario():
         self.endereco = endereco,
         
 gerente1 = Gerente
-gerente1.RegistrarConta()
+gerente1.deletarConta()

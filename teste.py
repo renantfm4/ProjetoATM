@@ -1,5 +1,6 @@
 import json
+with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json",  encoding="utf-8") as arquivo:
+    dados = json.load(arquivo)
 
-with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco.json", encoding="utf-8") as arquivo:
-            dados = json.load(arquivo)
-            print(dados)
+dados.append("oi")
+print(dados)
