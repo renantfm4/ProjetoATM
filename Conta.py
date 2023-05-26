@@ -27,52 +27,61 @@ class Conta:
             self.destinatario = destinatario
             a = datetime.now()
             hora_atual = a.strftime("%H:%M")
-            print("Hora atual: ", hora_atual)
-            print("Para que dia você quer realizar o pagamento?")
+            print("Hora atual:", hora_atual)
+            print("Para qual dia você quer realizar o pagamento? Digite (no formato 'DD-MM-AAAA'):")
             data_programada_str = input()
             print("E para qual horário?")
             self.horario_programado = input()
-            print("O quanto você quer transferir?")
-            self.valor = int(input())
+            print("Qual valor você deseja transferir?")
+            self.valor = float(input())
             dia, mes, ano = map(int, data_programada_str.split('-'))
             data_programada = date(ano, mes, dia)
             data_atual = date.today()
-            if self.valor > 0 and self.valor <= self.saldo + self.limite and data_programada >= data_atual:
-                data_corrigida = data_programada.strftime("%d-%m-%Y")
-                print(f"Pagamento no valor de {self.valor} R$ programado para às {self.horario_programado} do dia {data_corrigida}")
+            if self.valor > 0 and self.valor <= self.saldo + self.limite:
+                if data_programada >= data_atual:
+                    data_corrigida = data_programada.strftime("%d-%m-%Y")
+                    if data_atual == data_programada:
+                        if self.horario_programado >= hora_atual:
+                            print(f"Pagamento no valor de {self.valor} R$ programado para data {data_corrigida} às {self.horario_programado}")
+                            self.saldo -= self.valor
+                            destinatario.saldo += self.valor
+                            print(f"Pagamento no valor de {self.valor} R$ efetuado!")
+                        else:
+                            print("Horário fornecido inválido!")
+                    else:
+                        print(f"Pagamento no valor de {self.valor} R$ programado para data {data_corrigida} às {self.horario_programado}")
+                        print(f"Quando a data solicitada: {data_corrigida} às {self.horario_programado}, o pagamento será efetuado!")
+                else:
+                    print("Data fornecida inválida!")
             else:
                 print("Saldo insuficiente!")
-            if data_atual.strftime("%Y-%m-%d") == data_programada.strftime("%Y-%m-%d"):
-                if hora_atual == self.horario_programado:
-                    data_corrigida = data_programada.strftime("%d-%m-%Y")
-                    self.saldo -= self.valor
-                    destinatario.saldo += self.valor
-                    print(f"Pagamento no valor de {self.valor} R$ efetuado!")
-                else:
-                    print("Horário fornecido inválido!")
-            else:
-                print(f"Quando a data solicitada: {data_corrigida} , {self.horario_programado} o pagamento será efetuado!")
         except ValueError:
-            print("Data fornecida é inválida!")
-
+            print("Data fornecida é inválida!") 
     def SolicitarCredito(self):
-        valor_credito = float(input("Digite o valor do crédito: "))
-        data_programada_str = input("Digite a data programada (no formato 'DD-MM-AAAA'): ")
         try:
+            a = datetime.now()
+            hora_atual = a.strftime("%H:%M")
+            valor_credito = float(input("Digite o valor do crédito: "))
+            data_programada_str = input("Para que dia você quer solicitar o valor? Digite (no formato 'DD-MM-AAAA'): ")
             dia, mes, ano = map(int, data_programada_str.split('-'))
             data_programada = date(ano, mes, dia)
+            print("E para qual horário?")
+            self.horario_programado = input()
             data_atual = date.today()
             if valor_credito > 0 and data_programada >= data_atual:
                 data_corrigida = data_programada.strftime("%d-%m-%Y")
-                print(f"Solicitação de crédito no valor de {valor_credito} R$ para a data {data_corrigida} realizada!")
+                print(f"Solicitação de crédito no valor de {valor_credito} R$ para a data {data_corrigida} às {self.horario_programado} realizada!")
             else:
                 print("Valor ou data inválida para solicitar crédito!")
             if data_atual.strftime("%Y-%m-%d") == data_programada.strftime("%Y-%m-%d"):
-                self.saldo += valor_credito  
-                data_corrigida = data_programada.strftime("%d-%m-%Y")
-                print(f"Solicitação de crédito no valor de {valor_credito} R$ inserida ao banco!")
+                if hora_atual == self.horario_programado:
+                    self.saldo += valor_credito  
+                    data_corrigida = data_programada.strftime("%d-%m-%Y")
+                    print(f"Solicitação de crédito no valor de {valor_credito} R$ inserida ao banco!")
+                else:
+                    print("Horário fornecido inválido!")
             else: 
-                print(f"Quando a data fornecida: {data_corrigida} chegar, será inserida ao banco o valor!")
+                print(f"Quando a data fornecida: {data_corrigida} às {self.horario_programado} chegar, será inserida ao banco o valor!")
         except ValueError:
             print("Data fornecida é inválida!")
 
