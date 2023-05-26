@@ -42,10 +42,14 @@ class Conta:
                     data_corrigida = data_programada.strftime("%d-%m-%Y")
                     if data_atual == data_programada:
                         if self.horario_programado >= hora_atual:
-                            print(f"Pagamento no valor de {self.valor} R$ programado para data {data_corrigida} às {self.horario_programado}")
-                            self.saldo -= self.valor
-                            destinatario.saldo += self.valor
-                            print(f"Pagamento no valor de {self.valor} R$ efetuado!")
+                            if self.horario_programado == hora_atual:
+                                print(f"Pagamento no valor de {self.valor} R$ programado para data {data_corrigida} às {self.horario_programado}")
+                                self.saldo -= self.valor
+                                destinatario.saldo += self.valor
+                                print(f"Pagamento no valor de {self.valor} R$ efetuado!")
+                            else:
+                                print(f"Pagamento no valor de {self.valor} R$ programado para data {data_corrigida} às {self.horario_programado}")
+                                print(f"Quando a data solicitada: {data_corrigida} às {self.horario_programado}, o pagamento será efetuado!")
                         else:
                             print("Horário fornecido inválido!")
                     else:
@@ -68,20 +72,26 @@ class Conta:
             print("E para qual horário?")
             self.horario_programado = input()
             data_atual = date.today()
-            if valor_credito > 0 and data_programada >= data_atual:
-                data_corrigida = data_programada.strftime("%d-%m-%Y")
-                print(f"Solicitação de crédito no valor de {valor_credito} R$ para a data {data_corrigida} às {self.horario_programado} realizada!")
-            else:
-                print("Valor ou data inválida para solicitar crédito!")
-            if data_atual.strftime("%Y-%m-%d") == data_programada.strftime("%Y-%m-%d"):
-                if hora_atual == self.horario_programado:
-                    self.saldo += valor_credito  
+            if valor_credito > 0:
+                if data_programada >= data_atual:
                     data_corrigida = data_programada.strftime("%d-%m-%Y")
-                    print(f"Solicitação de crédito no valor de {valor_credito} R$ inserida ao banco!")
+                    if data_atual == data_programada:
+                        if self.horario_programado >= hora_atual:
+                            if self.horario_programado == hora_atual:
+                                print(f"Solicitação de crédito no valor de {valor_credito} R$ para a data {data_corrigida} às {self.horario_programado} realizada!")
+                                self.saldo += valor_credito  
+                                data_corrigida = data_programada.strftime("%d-%m-%Y")
+                                print(f"Solicitação de crédito no valor de {valor_credito} R$ inserida ao banco!")
+                            else:
+                                print(f"Solicitação de crédito no valor de {valor_credito} R$ para a data {data_corrigida} às {self.horario_programado} realizada!")
+                                print(f"Quando a data fornecida: {data_corrigida} às {self.horario_programado} chegar, será inserida ao banco o valor!")
+                        else:
+                            print("Horário fornecido inválido!")
+                    else:
+                        print(f"Solicitação de crédito no valor de {valor_credito} R$ para a data {data_corrigida} às {self.horario_programado} realizada!")
+                        print(f"Quando a data fornecida: {data_corrigida} às {self.horario_programado} chegar, será inserida ao banco o valor!")
                 else:
-                    print("Horário fornecido inválido!")
-            else: 
-                print(f"Quando a data fornecida: {data_corrigida} às {self.horario_programado} chegar, será inserida ao banco o valor!")
+                    print("Data fornecida é inválida!")
         except ValueError:
             print("Data fornecida é inválida!")
 

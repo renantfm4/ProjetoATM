@@ -25,8 +25,8 @@ conta_destinatario = Conta(senha="senha456", instituicao="Banco ABC", saldo=0, l
 #print("Saldo atual:", minha_conta.saldo)
 
 # Chamar a função transferir() para realizar uma transferência
-minha_conta.PagamentoProgramado(destinatario=conta_destinatario)
-#minha_conta.SolicitarCredito()
+#minha_conta.PagamentoProgramado(destinatario=conta_destinatario)
+minha_conta.SolicitarCredito()
 
 # Acessar os atributos atualizados
 print("Saldo atual da minha conta:", minha_conta.saldo)
