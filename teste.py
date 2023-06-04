@@ -1,6 +1,11 @@
 import json
-with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json",  encoding="utf-8") as arquivo:
+with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json", "r") as arquivo:
     dados = json.load(arquivo)
 
-dados.append("oi")
-print(dados)
+x = input()
+switch = {
+            "1":"Foi um",
+            "2":"Foi dois",
+            "3":"Foi tres",
+                      }
+print(switch["1"])
