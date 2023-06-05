@@ -1,7 +1,7 @@
 from datetime import datetime,date
 import json
 
-with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json", "r") as arquivo:
+with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json", "r") as arquivo:
     dados = json.load(arquivo)
 
 class Operacoes():
@@ -19,45 +19,63 @@ class Operacoes():
             atualizar = {"saldo":saldo}
             dados[index].update(atualizar)
 
-            carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
+            carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
             json.dump(dados, carregar_arquivo, indent=6)
 
             print("Saque realizado!")
         else:
             print("Saldo insuficiente!")
 
-    def depositar(self, saldo):
+    def depositar(self, index):
         valor = int(input("Digite o valor para o depósito"))
+        saldo = dados[index].get("saldo")
         if valor > 0:
             saldo += valor
+            atualizar = {"saldo":saldo}
+            dados[index].update(atualizar)
+
+            carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+            json.dump(dados, carregar_arquivo, indent=6)
+
             print("Depósito realizado!")
         else:
             print("Valor inserido é inválido!")
 
-    def PagamentoProgramado(self, destinatario):
+    def PagamentoProgramado(self, index_dest, index):
         try:
-            self.destinatario = destinatario
+            saldo = dados[index].get("saldo")
+            saldo_dest = dados[index_dest].get("saldo")
+
+            for key in range(len(dados)):
+                if dados[key].get("cpf") == index_dest:
+                    destinatario = index_dest
+
             a = datetime.now()
             hora_atual = a.strftime("%H:%M")
+
             print("Hora atual:", hora_atual)
-            print("Para qual dia você quer realizar o pagamento? Digite (no formato 'DD-MM-AAAA'):")
+            print("Para qual dia você quer realizar o pagamento? Digite (no formato 'DD-MM-AAAA'):\n")
             data_programada_str = input()
+
             print("E para qual horário?")
             self.horario_programado = input()
+
             print("Qual valor você deseja transferir?")
             self.valor = float(input())
+
             dia, mes, ano = map(int, data_programada_str.split('-'))
             data_programada = date(ano, mes, dia)
             data_atual = date.today()
-            if self.valor > 0 and self.valor <= self.saldo + self.limite:
+
+            if self.valor > 0 and self.valor <= saldo:
                 if data_programada >= data_atual:
                     data_corrigida = data_programada.strftime("%d-%m-%Y")
                     if data_atual == data_programada:
                         if self.horario_programado >= hora_atual:
                             if self.horario_programado == hora_atual:
                                 print(f"Pagamento no valor de {self.valor} R$ programado para data {data_corrigida} às {self.horario_programado}")
-                                self.saldo -= self.valor
-                                destinatario.saldo += self.valor
+                                saldo -= self.valor
+                                saldo_dest += self.valor
                                 print(f"Pagamento no valor de {self.valor} R$ efetuado!")
                             else:
                                 print(f"Pagamento no valor de {self.valor} R$ programado para data {data_corrigida} às {self.horario_programado}")
@@ -73,6 +91,8 @@ class Operacoes():
                 print("Saldo insuficiente!")
         except ValueError:
             print("Data fornecida é inválida!") 
+
+            
     def SolicitarCredito(self):
         try:
             a = datetime.now()
