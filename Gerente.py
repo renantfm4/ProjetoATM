@@ -1,7 +1,7 @@
 import json
 
 
-with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json",  encoding="utf-8") as arquivo:
+with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json",  encoding="utf-8") as arquivo:
             dados = json.load(arquivo)
 
 
@@ -12,7 +12,7 @@ class Gerente():
 
         
         # Variavel que direcionára as modificação no arquivo json
-        carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
+        carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
 
         nome, cpf, telefone, endereco = input("Insira os dados do cliente! (nome), (cpf), (telefone), (endereco)\n").split(" ")
         saldo = int(input("Digite o saldo do cliente\n"))                      
