@@ -6,6 +6,7 @@
 
 import customtkinter as ctk
 from tkinter import *
+import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 import warnings
@@ -73,7 +74,8 @@ class App(ctk.CTk):
         self.senha_login_entry = ctk.CTkEntry(self.frame_login, width=300, placeholder_text="Digite sua senha", corner_radius=15, show="*")
         self.senha_login_entry.grid(row=3, column=0, padx=10, pady=10)
         
-        self.ver_senha = ctk.CTkCheckBox(self.frame_login, text="Clique no checkbox para visualizar a senha")
+        self.checkbox_var = tk.IntVar()
+        self.ver_senha = ctk.CTkCheckBox(self.frame_login, text="Clique no checkbox para visualizar a senha", variable=self.checkbox_var, command=lambda: self.senha_login_entry.configure(show="" if self.checkbox_var.get() else "*"))
         self.ver_senha.grid(row=4, column=0, padx=10, pady=10)
 
         self.btn_login_sub = ctk.CTkButton(self.frame_login, text="Login".upper(), width=300, corner_radius=15,
@@ -110,8 +112,11 @@ class App(ctk.CTk):
         self.senha_login_entry = ctk.CTkEntry(self.frame_login_gerente, width=300, placeholder_text="Digite sua senha", corner_radius=15, show="*")
         self.senha_login_entry.grid(row=3, column=0, padx=10, pady=10)
         
-        self.ver_senha = ctk.CTkCheckBox(self.frame_login_gerente, text="Clique no checkbox para visualizar a senha")
+
+        self.checkbox_var = tk.IntVar()
+        self.ver_senha = ctk.CTkCheckBox(self.frame_login_gerente, text="Clique no checkbox para visualizar a senha", variable=self.checkbox_var, command=lambda: self.senha_login_entry.configure(show="" if self.checkbox_var.get() else "*"))
         self.ver_senha.grid(row=4, column=0, padx=10, pady=10)
+
 
         self.btn_login_sub = ctk.CTkButton(self.frame_login_gerente, text="Login".upper(), width=300, corner_radius=15,
         command=self.menu_gerente)
@@ -136,8 +141,78 @@ class App(ctk.CTk):
         self.frame_login.place_forget()
         self.frame_login_usuario.place_forget()
 
-        self.menu_user = ctk.CTkFrame(self, width=350, height=380)
-        self.menu_user.place(x=250, y=80)
+
+        self.menu_user = ctk.CTkFrame(self, width=350, height=250)
+        self.menu_user.place(x=20, y=15)
+
+        self.lab_titulo = ctk.CTkLabel(self.menu_user, text="Menu", font=("Century Gothic bold", 22))
+        self.lab_titulo.grid(row=0, column=0, padx=175, pady=10)
+        
+        
+        self.lab_extrato = ctk.CTkLabel(self.menu_user, text="1- Extrato", font=("Arial", 20))
+        self.lab_extrato.grid(row=1, column=0, padx=0, pady=(0,200), sticky="w")
+
+        self.lab_saque = ctk.CTkLabel(self.menu_user, text="2- Saque", font=("Arial", 20))
+        self.lab_saque.grid(row=1, column=0, padx=0, pady=(0,150), sticky="w")
+
+        self.lab_deposito = ctk.CTkLabel(self.menu_user, text="3- Depósito", font=("Arial", 20))
+        self.lab_deposito.grid(row=1, column=0, padx=0, pady=(0,100), sticky="w")
+
+        self.lab_pagamento = ctk.CTkLabel(self.menu_user, text="4- Realizar pagamento programado", font=("Arial", 20))
+        self.lab_pagamento.grid(row=1, column=0, padx=0, pady=(0,50), sticky="w")
+
+        self.lab_credito = ctk.CTkLabel(self.menu_user, text="5- Solicitar crédito", font=("Arial", 20))
+        self.lab_credito.grid(row=1, column=0, padx=0, pady=(0,0), sticky="w")
+
+        self.lab_sair = ctk.CTkLabel(self.menu_user, text="6- Sair", font=("Arial", 20))
+        self.lab_sair.grid(row=1, column=0, padx=0, pady=(50,0), sticky="w")
+
+        
+
+        self.lab_teste = ctk.CTkLabel(self.menu_user, text="Entre com sua opção:", font=("Arial", 17))
+        self.lab_teste.grid(row=1, column=0, padx=0, pady=(205,0), sticky="w")
+
+        self.menu_botao = ctk.CTkFrame(self, width=320, height=250)
+        self.menu_botao.place(x=500, y=16)
+        
+        self.um = ctk.CTkButton(self.menu_botao, text="1", font=("Arial", 20), width=50, height=50)
+        self.um.grid(row=1, column=0, padx=(10,2), pady=5, sticky="w")
+
+        self.dois = ctk.CTkButton(self.menu_botao, text="2", font=("Arial", 20), width=50, height=50)
+        self.dois.grid(row=1, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.tres = ctk.CTkButton(self.menu_botao, text="3", font=("Arial", 20), width=50, height=50)
+        self.tres.grid(row=1, column=2, padx=(10,2), pady=10, sticky="w")
+
+        self.quatro = ctk.CTkButton(self.menu_botao, text="4", font=("Arial", 20), width=50, height=50)
+        self.quatro.grid(row=2, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.cinco = ctk.CTkButton(self.menu_botao, text="5", font=("Arial", 20), width=50, height=50)
+        self.cinco.grid(row=2, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.seis = ctk.CTkButton(self.menu_botao, text="6", font=("Arial", 20), width=50, height=50)
+        self.seis.grid(row=2, column=2, padx=(10,2), pady=10, sticky="w")
+
+        self.sete = ctk.CTkButton(self.menu_botao, text="7", font=("Arial", 20), width=50, height=50)
+        self.sete.grid(row=5, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.oito = ctk.CTkButton(self.menu_botao, text="8", font=("Arial", 20), width=50, height=50)
+        self.oito.grid(row=5, column=1, padx=(10,2), pady=10, sticky="w")
+
+
+        self.zero = ctk.CTkButton(self.menu_botao, text="0", font=("Arial", 20), width=50, height=50)
+        self.zero.grid(row=6, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.enter = ctk.CTkButton(self.menu_botao, text="OK", font=("Arial", 20), width=50, height=50)
+        self.enter.grid(row=6, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.nove = ctk.CTkButton(self.menu_botao, text="9", font=("Arial", 20), width=50, height=50)
+        self.nove.grid(row=5, column=2, padx=(10,2), pady=10, sticky="w")
+
+    
+
+
+
 
 
 
