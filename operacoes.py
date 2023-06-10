@@ -46,10 +46,6 @@ class Operacoes():
             saldo = dados[index].get("saldo")
             saldo_dest = dados[index_dest].get("saldo")
 
-            for key in range(len(dados)):
-                if dados[key].get("cpf") == index_dest:
-                    destinatario = index_dest
-
             a = datetime.now()
             hora_atual = a.strftime("%H:%M")
 
@@ -58,37 +54,56 @@ class Operacoes():
             data_programada_str = input()
 
             print("E para qual horário?")
-            self.horario_programado = input()
+            horario_programado = input()
 
             print("Qual valor você deseja transferir?")
-            self.valor = float(input())
+            valor = float(input())
 
             dia, mes, ano = map(int, data_programada_str.split('-'))
             data_programada = date(ano, mes, dia)
             data_atual = date.today()
 
-            if self.valor > 0 and self.valor <= saldo:
+            if valor > 0 and valor <= saldo:
+
                 if data_programada >= data_atual:
                     data_corrigida = data_programada.strftime("%d-%m-%Y")
+
                     if data_atual == data_programada:
-                        if self.horario_programado >= hora_atual:
-                            if self.horario_programado == hora_atual:
-                                print(f"Pagamento no valor de {self.valor} R$ programado para data {data_corrigida} às {self.horario_programado}")
-                                saldo -= self.valor
-                                saldo_dest += self.valor
-                                print(f"Pagamento no valor de {self.valor} R$ efetuado!")
+
+                        if horario_programado >= hora_atual:
+
+                            if horario_programado == hora_atual:
+                                print(f"Pagamento no valor de {valor} R$ programado para data {data_corrigida} às {horario_programado}")
+                                saldo -= valor
+                                saldo_dest += valor
+
+                                atualizar = {"saldo":saldo}
+                                atualizar_dest = {"saldo":saldo_dest}
+                                dados[index].update(atualizar)
+                                dados[index_dest].update(atualizar_dest)
+
+                                carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+                                json.dump(dados, carregar_arquivo, indent=6)
+
+                                print(f"Pagamento no valor de {valor} R$ efetuado!")
+
                             else:
-                                print(f"Pagamento no valor de {self.valor} R$ programado para data {data_corrigida} às {self.horario_programado}")
-                                print(f"Quando a data solicitada: {data_corrigida} às {self.horario_programado}, o pagamento será efetuado!")
+                                print(f"Pagamento no valor de {valor} R$ programado para data {data_corrigida} às {horario_programado}")
+                                print(f"Quando a data solicitada: {data_corrigida} às {horario_programado}, o pagamento será efetuado!")
+
                         else:
                             print("Horário fornecido inválido!")
+
                     else:
-                        print(f"Pagamento no valor de {self.valor} R$ programado para data {data_corrigida} às {self.horario_programado}")
-                        print(f"Quando a data solicitada: {data_corrigida} às {self.horario_programado}, o pagamento será efetuado!")
+                        print(f"Pagamento no valor de {valor} R$ programado para data {data_corrigida} às {horario_programado}")
+                        print(f"Quando a data solicitada: {data_corrigida} às {horario_programado}, o pagamento será efetuado!")
+
                 else:
                     print("Data fornecida inválida!")
+
             else:
                 print("Saldo insuficiente!")
+
         except ValueError:
             print("Data fornecida é inválida!") 
 

@@ -7,21 +7,20 @@ with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json", "r") as arquivo:
 
 class Conta(Operacoes):
 
-    def login(self, nome, cpf):
+    def login(self, cpf, senha):
         
         for key in range(len(dados)):
-            if dados[key].get("nome") == nome and dados[key].get("cpf") == cpf:
-                
-                return key
-        print("Usuário não encontrado")
-        return False    
+            if dados[key].get("senha") == senha and dados[key].get("cpf") == cpf:      
+                return [True,key]    
+        return [False]    
     
 
-    def acessa_conta(self):
-        nome, cpf = input("nome,cpf").split(" ") 
-        if self.login(nome,cpf) != False:
-            return
+    def acessa_conta(self,cpf,senha):
+       
+        if self.login(cpf,senha)[0] == False:
+            return "Usuário não encontrado"
         else:
+            nome = dados[self.login(cpf,senha)[1]].get("nome")
             print(f"Logged! {nome}\n")
             print("Digite a operação desejada\n 1-Saque\n 2-Deposito \n 3-Pagamento Programado")
             x = input()
@@ -32,6 +31,3 @@ class Conta(Operacoes):
                 self.PagamentoProgramado(index_dest=self.login(nome_dest, cpf_dest), index=self.login(nome,cpf))
             
     
-
-conta1 = Conta()
-conta1.acessa_conta() 

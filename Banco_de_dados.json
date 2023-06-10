@@ -4,13 +4,23 @@
             "cpf": "67",
             "telefone": "12",
             "endereco": "casa",
-            "saldo": 30
+            "saldo": 6.0,
+            "senha": "25"
       },
       {
             "nome": "marcio",
             "cpf": "23",
             "telefone": "67",
             "endereco": "casa",
-            "saldo": 300
+            "saldo": 30.0,
+            "senha": "23"
+      },
+      {
+            "nome": "mar",
+            "cpf": "212",
+            "telefone": "61",
+            "endereco": "22",
+            "saldo": 0,
+            "senha": "24"
       }
 ]

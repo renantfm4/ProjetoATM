@@ -14,10 +14,10 @@ class Gerente():
         # Variavel que direcionára as modificação no arquivo json
         carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
 
-        nome, cpf, telefone, endereco = input("Insira os dados do cliente! (nome), (cpf), (telefone), (endereco)\n").split(" ")
+        nome, cpf, telefone, endereco, senha = input("Insira os dados do cliente! (nome), (cpf), (telefone), (endereco)\n").split(" ")
         saldo = int(input("Digite o saldo do cliente\n"))                      
 
-        dados.append({"nome":nome, "cpf":cpf, "telefone":telefone, "endereco":endereco, "saldo":saldo})
+        dados.append({"nome":nome, "cpf":cpf, "telefone":telefone, "endereco":endereco, "saldo":saldo, "senha":senha})
         
         json.dump(dados, carregar_arquivo, indent=6)
 
@@ -47,12 +47,7 @@ class Gerente():
         for i in range(len(dados)):
             print(dados[i])
 
-class Usuario():
-    def __init__(self, nome, cpf, telefone, endereco):
-        self.nome = nome
-        self.cpf = cpf,
-        self.telefone = telefone
-        self.endereco = endereco,
+
         
 gerente1 = Gerente
 gerente1.RegistrarConta()
