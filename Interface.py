@@ -2,7 +2,7 @@
 #pip install pillow
 
 #import tkinter 
-
+from Gerente import *
 from Conta import *
 import customtkinter as ctk
 from tkinter import *
@@ -15,6 +15,7 @@ ctk.set_appearance_mode("dark")
 warnings.filterwarnings("ignore", category=UserWarning) 
 
 conta = Conta()
+gerente = Gerente()
 class App(ctk.CTk):
     
     def __init__(self):
@@ -69,12 +70,12 @@ class App(ctk.CTk):
         self.lab_title.grid(row=1, column=0, padx=10, pady=10)
 
         self.username_login_entry = tk.Entry(self.frame_login)
-        self.login = str(self.username_login_entry.get())
+       # self.login = str(self.username_login_entry.get())
         self.username_login_entry.grid(row=2, column=0, padx=10, pady=10) 
         
 
         self.senha_login_entry = tk.Entry(self.frame_login,  show="*")
-        self.senha = str(self.senha_login_entry.get())
+        #self.senha = str(self.senha_login_entry.get())
         self.senha_login_entry.grid(row=3, column=0, padx=10, pady=10)
         
 
@@ -88,6 +89,14 @@ class App(ctk.CTk):
         self.btn_login_sub.grid(row=5, column=0, padx=10, pady=10)
 
 
+    
+
+
+
+
+
+
+
 
     def janela (self,cpf):
         self.frame_tipo = ctk.CTkFrame(self, width=350, height=380)
@@ -98,9 +107,11 @@ class App(ctk.CTk):
 
 
     def entrada(self):
-        
-        if conta.login(self.login,self.senha)[0] == False:   
-            return self.janela(self.login)
+        cpf = str(self.username_login_entry.get())
+        senha = str(self.senha_login_entry.get())
+
+        if conta.login(cpf,senha)[0] == False:   
+            return self.janela(cpf)
 
 
             
@@ -115,6 +126,27 @@ class App(ctk.CTk):
             #    nome_dest, cpf_dest = input("Digite o nome e o cpf do Destinatário").split(" ")
             #    self.PagamentoProgramado(index_dest=self.login(nome_dest, cpf_dest), index=self.login(nome,cpf))
            return self.menu_usuario()
+        
+    def entrada_gerente(self):
+        cpf = str(self.username_login_entry.get())
+        senha = str(self.senha_login_entry.get())
+
+        if gerente.login_gerente(cpf,senha)[0] == False:   
+            return self.janela(cpf)
+
+
+            
+        else:
+            #nome = dados[self.login(cpf,senha)[1]].get("nome")
+            #print(f"Logged! {nome}\n")
+            #print("Digite a operação desejada\n 1-Saque\n 2-Deposito \n 3-Pagamento Programado")
+            #x = input()
+            #if x == "1":self.sacar(self.login(nome,cpf));
+            #elif x == "2":self.depositar(self.login(nome,cpf))
+            #elif x == "3":
+            #    nome_dest, cpf_dest = input("Digite o nome e o cpf do Destinatário").split(" ")
+            #    self.PagamentoProgramado(index_dest=self.login(nome_dest, cpf_dest), index=self.login(nome,cpf))
+           return self.menu_gerente()
         
     def tela_login_gerente(self):
 
@@ -153,7 +185,7 @@ class App(ctk.CTk):
 
 
         self.btn_login_sub = ctk.CTkButton(self.frame_login_gerente, text="Login".upper(), width=300, corner_radius=15,
-        command=self.menu_gerente)
+        command=self.entrada_gerente)
         self.btn_login_sub.grid(row=5, column=0, padx=10, pady=10)
     
     def menu_gerente(self):

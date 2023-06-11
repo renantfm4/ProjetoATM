@@ -4,10 +4,18 @@ import json
 with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json",  encoding="utf-8") as arquivo:
             dados = json.load(arquivo)
 
+with open("C:\WORKSPACE\Python\ATM\Banco_gerente.json",  encoding="utf-8") as arquivo1:
+            dados1 = json.load(arquivo1)
 
 class Gerente():
 
-    
+    def login_gerente(self, cpf, senha):
+        
+        for key in range(len(dados)):
+            if dados1[key].get("senha") == senha and dados1[key].get("cpf") == cpf:      
+                return [True,key]    
+        return [False]
+         
     def RegistrarConta():
 
         
@@ -49,5 +57,5 @@ class Gerente():
 
 
         
-gerente1 = Gerente
-gerente1.RegistrarConta()
+gerente1 = Gerente()
+print(gerente1.login_gerente("12","12")[0])
