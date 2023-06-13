@@ -195,12 +195,60 @@ class App(ctk.CTk):
         self.menu = ctk.CTkFrame(self, width=350, height=380)
         self.menu.place(x=250, y=80)
 
-        self.registrar = ctk.CTkButton(self.menu, text="Registrar Usuário".upper())
+        self.registrar = ctk.CTkButton(self.menu, text="Registrar Usuário".upper(), command=self.registrar)
         self.registrar.grid(row=1, column=0, padx=10, pady=10)
-        self.deletar = ctk.CTkButton(self.menu, text="Deletar Usuário".upper())
+        self.deletar = ctk.CTkButton(self.menu, text="Deletar Usuário".upper(), command=self.deletar)
         self.deletar.grid(row=3, column=0, padx=10, pady=10)
         self.listar = ctk.CTkButton(self.menu, text="Listar Contas".upper())
         self.listar.grid(row=5, column=0, padx=10, pady=10)
+        
+    def registrar(self):
+
+        self.menu.place_forget()
+
+        self.registro_menu = ctk.CTkFrame(self, width=350, height=380)
+        self.registro_menu.place(x=130, y=7)
+
+        self.registrar_titulo = ctk.CTkLabel(self.registro_menu, text="Registrar", font=("Century Gothic bold", 22))
+        self.registrar_titulo.grid(row=0, column=0, padx=175, pady=10)
+
+        self.nome_usuario = ctk.CTkEntry(self.registro_menu, width=300, placeholder_text="Nome", corner_radius=15)
+        self.nome_usuario.grid(row=1, column=0, padx=10, pady=10) 
+
+        self.cpf_usuario = ctk.CTkEntry(self.registro_menu, width=300, placeholder_text="CPF", corner_radius=15)
+        self.cpf_usuario.grid(row=2, column=0, padx=10, pady=10) 
+
+        self.telefone_usuario = ctk.CTkEntry(self.registro_menu, width=300, placeholder_text="Telefone", corner_radius=15)
+        self.telefone_usuario.grid(row=3, column=0, padx=10, pady=10) 
+
+        self.endereco_usuario = ctk.CTkEntry(self.registro_menu, width=300, placeholder_text="Endereço", corner_radius=15)
+        self.endereco_usuario.grid(row=4, column=0, padx=10, pady=10) 
+
+        self.saldo_usuario = ctk.CTkEntry(self.registro_menu, width=300, placeholder_text="Saldo", corner_radius=15)
+        self.saldo_usuario.grid(row=5, column=0, padx=10, pady=10) 
+
+        self.senha_usuario = ctk.CTkEntry(self.registro_menu, width=300, placeholder_text="Senha", corner_radius=15)
+        self.senha_usuario.grid(row=6, column=0, padx=10, pady=10) 
+
+        self.confirmar = ctk.CTkButton(self.registro_menu, text="Confirmar".upper(), width=300, corner_radius=15)
+        self.confirmar.grid(row=7, column=0, padx=10, pady=10)
+
+    def deletar(self):
+
+        self.menu.place_forget()
+
+        self.deletar_menu = ctk.CTkFrame(self, width=350, height=380)
+        self.deletar_menu.place(x=130, y=7)
+
+        self.deletar_titulo = ctk.CTkLabel(self.deletar_menu, text="Deletar", font=("Century Gothic bold", 22))
+        self.deletar_titulo.grid(row=0, column=0, padx=175, pady=10)
+
+        self.selecionar_usuario = ctk.CTkCheckBox(self.deletar_menu, text="*usuario*",)
+        self.selecionar_usuario.grid(row=4, column=0, padx=10, pady=10)
+
+        self.confirmar = ctk.CTkButton(self.deletar_menu, text="Confirmar".upper(), width=300, corner_radius=15)
+        self.confirmar.grid(row=7, column=0, padx=10, pady=10)
+
 
     def menu_usuario(self):
 
@@ -244,16 +292,16 @@ class App(ctk.CTk):
         self.um = ctk.CTkButton(self.menu_botao, text="1", font=("Arial", 20), width=50, height=50)
         self.um.grid(row=1, column=0, padx=(10,2), pady=5, sticky="w")
 
-        self.dois = ctk.CTkButton(self.menu_botao, text="2", font=("Arial", 20), width=50, height=50)
+        self.dois = ctk.CTkButton(self.menu_botao, text="2", font=("Arial", 20), width=50, height=50, command=self.saque)
         self.dois.grid(row=1, column=1, padx=(10,2), pady=10, sticky="w")
 
-        self.tres = ctk.CTkButton(self.menu_botao, text="3", font=("Arial", 20), width=50, height=50)
+        self.tres = ctk.CTkButton(self.menu_botao, text="3", font=("Arial", 20), width=50, height=50, command=self.deposito)
         self.tres.grid(row=1, column=2, padx=(10,2), pady=10, sticky="w")
 
-        self.quatro = ctk.CTkButton(self.menu_botao, text="4", font=("Arial", 20), width=50, height=50)
+        self.quatro = ctk.CTkButton(self.menu_botao, text="4", font=("Arial", 20), width=50, height=50, command=self.pagamento_programado)
         self.quatro.grid(row=2, column=0, padx=(10,2), pady=10, sticky="w")
 
-        self.cinco = ctk.CTkButton(self.menu_botao, text="5", font=("Arial", 20), width=50, height=50)
+        self.cinco = ctk.CTkButton(self.menu_botao, text="5", font=("Arial", 20), width=50, height=50, command=self.credito)
         self.cinco.grid(row=2, column=1, padx=(10,2), pady=10, sticky="w")
 
         self.seis = ctk.CTkButton(self.menu_botao, text="6", font=("Arial", 20), width=50, height=50)
@@ -275,10 +323,248 @@ class App(ctk.CTk):
         self.nove = ctk.CTkButton(self.menu_botao, text="9", font=("Arial", 20), width=50, height=50)
         self.nove.grid(row=5, column=2, padx=(10,2), pady=10, sticky="w")
 
+    def saque(self):
+
+        self.menu_user.place_forget()
+        self.menu_botao.place_forget()
+
+
+        self.registro_menu = ctk.CTkFrame(self, width=350, height=250)
+        self.registro_menu.place(x=20, y=15)
+
+        self.saque_titulo = ctk.CTkLabel(self.registro_menu, text="Saque", font=("Century Gothic bold", 22))
+        self.saque_titulo.grid(row=0, column=0, padx=175, pady=10)
+
+        self.digito_saque = ctk.CTkEntry(self.registro_menu, width=300, placeholder_text="Insira o valor do saque", corner_radius=15)
+        self.digito_saque.grid(row=1, column=0, padx=10, pady=10) 
+
+        self.lab_teste = ctk.CTkLabel(self.registro_menu, text="Saldo: ", font=("Arial", 20))
+        self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
+
+
+        self.credito_botao = ctk.CTkFrame(self, width=320, height=250)
+        self.credito_botao.place(x=500, y=16)
+        
+        self.um = ctk.CTkButton(self.credito_botao, text="1", font=("Arial", 20), width=50, height=50)
+        self.um.grid(row=1, column=0, padx=(10,2), pady=5, sticky="w")
+
+        self.dois = ctk.CTkButton(self.credito_botao, text="2", font=("Arial", 20), width=50, height=50)
+        self.dois.grid(row=1, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.tres = ctk.CTkButton(self.credito_botao, text="3", font=("Arial", 20), width=50, height=50)
+        self.tres.grid(row=1, column=2, padx=(10,2), pady=10, sticky="w")
+
+        self.quatro = ctk.CTkButton(self.credito_botao, text="4", font=("Arial", 20), width=50, height=50)
+        self.quatro.grid(row=2, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.cinco = ctk.CTkButton(self.credito_botao, text="5", font=("Arial", 20), width=50, height=50)
+        self.cinco.grid(row=2, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.seis = ctk.CTkButton(self.credito_botao, text="6", font=("Arial", 20), width=50, height=50)
+        self.seis.grid(row=2, column=2, padx=(10,2), pady=10, sticky="w")
+
+        self.sete = ctk.CTkButton(self.credito_botao, text="7", font=("Arial", 20), width=50, height=50)
+        self.sete.grid(row=5, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.oito = ctk.CTkButton(self.credito_botao, text="8", font=("Arial", 20), width=50, height=50)
+        self.oito.grid(row=5, column=1, padx=(10,2), pady=10, sticky="w")
+
+
+        self.zero = ctk.CTkButton(self.credito_botao, text="0", font=("Arial", 20), width=50, height=50)
+        self.zero.grid(row=6, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.enter = ctk.CTkButton(self.credito_botao, text="OK", font=("Arial", 20), width=50, height=50)
+        self.enter.grid(row=6, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.nove = ctk.CTkButton(self.credito_botao, text="9", font=("Arial", 20), width=50, height=50)
+        self.nove.grid(row=5, column=2, padx=(10,2), pady=10, sticky="w")
+
+    
+    def deposito(self):
+
+        self.menu_user.place_forget()
+        self.menu_botao.place_forget()
+
+
+        self.credito_menu = ctk.CTkFrame(self, width=350, height=250)
+        self.credito_menu.place(x=20, y=15)
+
+        self.deposito_titulo = ctk.CTkLabel(self.credito_menu, text="Depósito", font=("Century Gothic bold", 22))
+        self.deposito_titulo.grid(row=0, column=0, padx=175, pady=10)
+
+        self.digito_deposito = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira o valor do depósito", corner_radius=15)
+        self.digito_deposito.grid(row=1, column=0, padx=10, pady=10) 
+
+        self.lab_teste = ctk.CTkLabel(self.credito_menu, text="Saldo: ", font=("Arial", 20))
+        self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
+
+
+        self.credito_botao = ctk.CTkFrame(self, width=320, height=250)
+        self.credito_botao.place(x=500, y=16)
+        
+        self.um = ctk.CTkButton(self.credito_botao, text="1", font=("Arial", 20), width=50, height=50)
+        self.um.grid(row=1, column=0, padx=(10,2), pady=5, sticky="w")
+
+        self.dois = ctk.CTkButton(self.credito_botao, text="2", font=("Arial", 20), width=50, height=50)
+        self.dois.grid(row=1, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.tres = ctk.CTkButton(self.credito_botao, text="3", font=("Arial", 20), width=50, height=50)
+        self.tres.grid(row=1, column=2, padx=(10,2), pady=10, sticky="w")
+
+        self.quatro = ctk.CTkButton(self.credito_botao, text="4", font=("Arial", 20), width=50, height=50)
+        self.quatro.grid(row=2, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.cinco = ctk.CTkButton(self.credito_botao, text="5", font=("Arial", 20), width=50, height=50)
+        self.cinco.grid(row=2, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.seis = ctk.CTkButton(self.credito_botao, text="6", font=("Arial", 20), width=50, height=50)
+        self.seis.grid(row=2, column=2, padx=(10,2), pady=10, sticky="w")
+
+        self.sete = ctk.CTkButton(self.credito_botao, text="7", font=("Arial", 20), width=50, height=50)
+        self.sete.grid(row=5, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.oito = ctk.CTkButton(self.credito_botao, text="8", font=("Arial", 20), width=50, height=50)
+        self.oito.grid(row=5, column=1, padx=(10,2), pady=10, sticky="w")
+
+
+        self.zero = ctk.CTkButton(self.credito_botao, text="0", font=("Arial", 20), width=50, height=50)
+        self.zero.grid(row=6, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.enter = ctk.CTkButton(self.credito_botao, text="OK", font=("Arial", 20), width=50, height=50)
+        self.enter.grid(row=6, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.nove = ctk.CTkButton(self.credito_botao, text="9", font=("Arial", 20), width=50, height=50)
+        self.nove.grid(row=5, column=2, padx=(10,2), pady=10, sticky="w")
+
     
 
+    def pagamento_programado(self):
+
+        self.menu_user.place_forget()
+        self.menu_botao.place_forget()
 
 
+        self.credito_menu = ctk.CTkFrame(self, width=350, height=250)
+        self.credito_menu.place(x=20, y=15)
+
+        self.pagamento_titulo = ctk.CTkLabel(self.credito_menu, text="Programado", font=("Century Gothic bold", 22))
+        self.pagamento_titulo.grid(row=0, column=0, padx=(0,20), pady=10)
+
+        self.valor_pagamento = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira o valor do pagamento", corner_radius=15)
+        self.valor_pagamento.grid(row=1, column=0, padx=10, pady=10) 
+
+        self.data_credito = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira a data do pagamento", corner_radius=15)
+        self.data_credito.grid(row=2, column=0, padx=10, pady=10) 
+
+        self.hora_pagamento = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira a hora do pagamento", corner_radius=15)
+        self.hora_pagamento.grid(row=2, column=0, padx=10, pady=(0,120)) 
+
+        self.lab_teste = ctk.CTkLabel(self.credito_menu, text="Saldo: ", font=("Arial", 20))
+        self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
+
+        
+
+
+        self.credito_botao = ctk.CTkFrame(self, width=320, height=250)
+        self.credito_botao.place(x=500, y=16)
+        
+        self.um = ctk.CTkButton(self.credito_botao, text="1", font=("Arial", 20), width=50, height=50)
+        self.um.grid(row=1, column=0, padx=(10,2), pady=5, sticky="w")
+
+        self.dois = ctk.CTkButton(self.credito_botao, text="2", font=("Arial", 20), width=50, height=50)
+        self.dois.grid(row=1, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.tres = ctk.CTkButton(self.credito_botao, text="3", font=("Arial", 20), width=50, height=50)
+        self.tres.grid(row=1, column=2, padx=(10,2), pady=10, sticky="w")
+
+        self.quatro = ctk.CTkButton(self.credito_botao, text="4", font=("Arial", 20), width=50, height=50)
+        self.quatro.grid(row=2, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.cinco = ctk.CTkButton(self.credito_botao, text="5", font=("Arial", 20), width=50, height=50)
+        self.cinco.grid(row=2, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.seis = ctk.CTkButton(self.credito_botao, text="6", font=("Arial", 20), width=50, height=50)
+        self.seis.grid(row=2, column=2, padx=(10,2), pady=10, sticky="w")
+
+        self.sete = ctk.CTkButton(self.credito_botao, text="7", font=("Arial", 20), width=50, height=50)
+        self.sete.grid(row=5, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.oito = ctk.CTkButton(self.credito_botao, text="8", font=("Arial", 20), width=50, height=50)
+        self.oito.grid(row=5, column=1, padx=(10,2), pady=10, sticky="w")
+
+
+        self.zero = ctk.CTkButton(self.credito_botao, text="0", font=("Arial", 20), width=50, height=50)
+        self.zero.grid(row=6, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.enter = ctk.CTkButton(self.credito_botao, text="OK", font=("Arial", 20), width=50, height=50)
+        self.enter.grid(row=6, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.nove = ctk.CTkButton(self.credito_botao, text="9", font=("Arial", 20), width=50, height=50)
+        self.nove.grid(row=5, column=2, padx=(10,2), pady=10, sticky="w")
+
+    
+    def credito(self):
+
+        self.menu_user.place_forget()
+        self.menu_botao.place_forget()
+
+
+        self.credito_menu = ctk.CTkFrame(self, width=350, height=250)
+        self.credito_menu.place(x=20, y=15)
+
+        self.credito_titulo = ctk.CTkLabel(self.credito_menu, text="Crédito", font=("Century Gothic bold", 22))
+        self.credito_titulo.grid(row=0, column=0, padx=175, pady=10)
+
+        self.valor_credito = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira o valor do crédito", corner_radius=15)
+        self.valor_credito.grid(row=1, column=0, padx=10, pady=10) 
+
+        self.data_credito = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira a data do pagamento", corner_radius=15)
+        self.data_credito.grid(row=2, column=0, padx=10, pady=10) 
+
+        self.hora_credito = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira a hora do pagamento", corner_radius=15)
+        self.hora_credito.grid(row=2, column=0, padx=10, pady=(0,120)) 
+
+        self.lab_teste = ctk.CTkLabel(self.credito_menu, text="Saldo: ", font=("Arial", 20))
+        self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
+
+        self.credito_botao = ctk.CTkFrame(self, width=320, height=250)
+        self.credito_botao.place(x=500, y=16)
+        
+        self.um = ctk.CTkButton(self.credito_botao, text="1", font=("Arial", 20), width=50, height=50)
+        self.um.grid(row=1, column=0, padx=(10,2), pady=5, sticky="w")
+
+        self.dois = ctk.CTkButton(self.credito_botao, text="2", font=("Arial", 20), width=50, height=50)
+        self.dois.grid(row=1, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.tres = ctk.CTkButton(self.credito_botao, text="3", font=("Arial", 20), width=50, height=50)
+        self.tres.grid(row=1, column=2, padx=(10,2), pady=10, sticky="w")
+
+        self.quatro = ctk.CTkButton(self.credito_botao, text="4", font=("Arial", 20), width=50, height=50)
+        self.quatro.grid(row=2, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.cinco = ctk.CTkButton(self.credito_botao, text="5", font=("Arial", 20), width=50, height=50)
+        self.cinco.grid(row=2, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.seis = ctk.CTkButton(self.credito_botao, text="6", font=("Arial", 20), width=50, height=50)
+        self.seis.grid(row=2, column=2, padx=(10,2), pady=10, sticky="w")
+
+        self.sete = ctk.CTkButton(self.credito_botao, text="7", font=("Arial", 20), width=50, height=50)
+        self.sete.grid(row=5, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.oito = ctk.CTkButton(self.credito_botao, text="8", font=("Arial", 20), width=50, height=50)
+        self.oito.grid(row=5, column=1, padx=(10,2), pady=10, sticky="w")
+
+
+        self.zero = ctk.CTkButton(self.credito_botao, text="0", font=("Arial", 20), width=50, height=50)
+        self.zero.grid(row=6, column=0, padx=(10,2), pady=10, sticky="w")
+
+        self.enter = ctk.CTkButton(self.credito_botao, text="OK", font=("Arial", 20), width=50, height=50)
+        self.enter.grid(row=6, column=1, padx=(10,2), pady=10, sticky="w")
+
+        self.nove = ctk.CTkButton(self.credito_botao, text="9", font=("Arial", 20), width=50, height=50)
+        self.nove.grid(row=5, column=2, padx=(10,2), pady=10, sticky="w")
+
+    
 
 
 
