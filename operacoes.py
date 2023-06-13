@@ -1,7 +1,7 @@
 from datetime import datetime,date
 import json
 
-with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json", "r") as arquivo:
+with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json", "r") as arquivo:
     dados = json.load(arquivo)
 
 class Operacoes():
@@ -10,8 +10,8 @@ class Operacoes():
     def __init__(self):
         extrato = []
 
-    def sacar(self, index):
-        valor = int(input("Digite o valor para saque:\n"))
+    def sacar(self, index, valor):
+        
         saldo = dados[index].get("saldo")
         if valor > 0 and valor <= saldo:
             
@@ -19,27 +19,27 @@ class Operacoes():
             atualizar = {"saldo":saldo}
             dados[index].update(atualizar)
 
-            carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+            carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
             json.dump(dados, carregar_arquivo, indent=6)
 
-            print("Saque realizado!")
+            return True
         else:
-            print("Saldo insuficiente!")
+            return False
 
-    def depositar(self, index):
-        valor = int(input("Digite o valor para o depósito"))
+    def depositar(self, index, valor):
+        
         saldo = dados[index].get("saldo")
         if valor > 0:
             saldo += valor
             atualizar = {"saldo":saldo}
             dados[index].update(atualizar)
 
-            carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+            carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
             json.dump(dados, carregar_arquivo, indent=6)
 
-            print("Depósito realizado!")
+            return True
         else:
-            print("Valor inserido é inválido!")
+            return False
 
     def PagamentoProgramado(self, index_dest, index):
         try:
@@ -82,7 +82,7 @@ class Operacoes():
                                 dados[index].update(atualizar)
                                 dados[index_dest].update(atualizar_dest)
 
-                                carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+                                carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
                                 json.dump(dados, carregar_arquivo, indent=6)
 
                                 print(f"Pagamento no valor de {valor} R$ efetuado!")
