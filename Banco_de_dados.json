@@ -1,26 +1,11 @@
 [
+      {},
       {
-            "nome": "caio",
-            "cpf": "67",
+            "nome": "ma",
+            "cpf": "12",
             "telefone": "12",
             "endereco": "casa",
-            "saldo": 1.0,
-            "senha": "25"
-      },
-      {
-            "nome": "marcio",
-            "cpf": "23",
-            "telefone": "67",
-            "endereco": "casa",
-            "saldo": 30.0,
-            "senha": "23"
-      },
-      {
-            "nome": "mar",
-            "cpf": "212",
-            "telefone": "61",
-            "endereco": "22",
-            "saldo": 0,
-            "senha": "24"
+            "saldo": 1110571.0,
+            "senha": "12"
       }
 ]

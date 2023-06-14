@@ -1,10 +1,10 @@
 import json
 
 
-with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json",  encoding="utf-8") as arquivo:
+with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json",  encoding="utf-8") as arquivo:
             dados = json.load(arquivo)
 
-with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_gerente.json",  encoding="utf-8") as arquivo1:
+with open("C:\WORKSPACE\Python\ATM\Banco_gerente.json",  encoding="utf-8") as arquivo1:
             dados1 = json.load(arquivo1)
 
 class Gerente():
@@ -16,14 +16,14 @@ class Gerente():
                 return [True,key]    
         return [False]
          
-    def RegistrarConta():
+    def RegistrarConta(self, nome, cpf, telefone, endereco, saldo, senha):
 
         
         # Variavel que direcionára as modificação no arquivo json
-        carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
+        carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
 
-        nome, cpf, telefone, endereco, senha = input("Insira os dados do cliente! (nome), (cpf), (telefone), (endereco)\n").split(" ")
-        saldo = int(input("Digite o saldo do cliente\n"))                      
+        
+                            
 
         dados.append({"nome":nome, "cpf":cpf, "telefone":telefone, "endereco":endereco, "saldo":saldo, "senha":senha})
         
@@ -33,10 +33,10 @@ class Gerente():
         
          
 
-    def deletarConta():
+    def deletarConta(self, nome, cpf):
     
         try:
-            nome, cpf = input("Coloque o nome do cliente e suas senha para a remoção\n").split(" ")
+            
             for i in range(len(dados)):
                 if (dados[i].get("nome") == nome) and (dados[i].get("cpf") == cpf):
                     carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")

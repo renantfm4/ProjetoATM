@@ -1,8 +1,11 @@
 from datetime import datetime,date
+
 import json
 
-with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json", "r") as arquivo:
+with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json", "r") as arquivo:
     dados = json.load(arquivo)
+
+
 
 class Operacoes():
     
@@ -19,7 +22,7 @@ class Operacoes():
             atualizar = {"saldo":saldo}
             dados[index].update(atualizar)
 
-            carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
+            carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
             json.dump(dados, carregar_arquivo, indent=6)
 
             return True
@@ -34,30 +37,17 @@ class Operacoes():
             atualizar = {"saldo":saldo}
             dados[index].update(atualizar)
 
-            carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
+            carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
             json.dump(dados, carregar_arquivo, indent=6)
 
             return True
         else:
             return False
 
-    def PagamentoProgramado(self, index_dest, index):
+    def PagamentoProgramado(self,index, valor, data_programada_str):
         try:
             saldo = dados[index].get("saldo")
-            saldo_dest = dados[index_dest].get("saldo")
-
-            a = datetime.now()
-            hora_atual = a.strftime("%H:%M")
-
-            print("Hora atual:", hora_atual)
-            print("Para qual dia você quer realizar o pagamento? Digite (no formato 'DD-MM-AAAA'):\n")
-            data_programada_str = input()
-
-            print("E para qual horário?")
-            horario_programado = input()
-
-            print("Qual valor você deseja transferir?")
-            valor = float(input())
+    
 
             dia, mes, ano = map(int, data_programada_str.split('-'))
             data_programada = date(ano, mes, dia)
@@ -65,47 +55,45 @@ class Operacoes():
 
             if valor > 0 and valor <= saldo:
 
-                if data_programada >= data_atual:
+                if data_programada > data_atual:
                     data_corrigida = data_programada.strftime("%d-%m-%Y")
+                    add_prog = {"Programados":[saldo, data_programada]}
+                               
+                    dados[index].update(add_prog)
+                                
 
-                    if data_atual == data_programada:
+                    carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+                    json.dump(dados, carregar_arquivo, indent=6)
+                    
+                    
+                    return [True, f"Pagamento no valor de {valor} R$ programado para data {data_programada_str} "]
+                    
+                elif data_atual == data_programada:
 
-                        if horario_programado >= hora_atual:
+                       
+                                
+                    saldo -= valor
+                                
 
-                            if horario_programado == hora_atual:
-                                print(f"Pagamento no valor de {valor} R$ programado para data {data_corrigida} às {horario_programado}")
-                                saldo -= valor
-                                saldo_dest += valor
+                    atualizar = {"saldo":saldo}
+                               
+                    dados[index].update(atualizar)
+                                
 
-                                atualizar = {"saldo":saldo}
-                                atualizar_dest = {"saldo":saldo_dest}
-                                dados[index].update(atualizar)
-                                dados[index_dest].update(atualizar_dest)
-
-                                carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
-                                json.dump(dados, carregar_arquivo, indent=6)
-
-                                print(f"Pagamento no valor de {valor} R$ efetuado!")
-
-                            else:
-                                print(f"Pagamento no valor de {valor} R$ programado para data {data_corrigida} às {horario_programado}")
-                                print(f"Quando a data solicitada: {data_corrigida} às {horario_programado}, o pagamento será efetuado!")
-
-                        else:
-                            print("Horário fornecido inválido!")
-
-                    else:
-                        print(f"Pagamento no valor de {valor} R$ programado para data {data_corrigida} às {horario_programado}")
-                        print(f"Quando a data solicitada: {data_corrigida} às {horario_programado}, o pagamento será efetuado!")
+                    carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+                    json.dump(dados, carregar_arquivo, indent=6)
+                    return [True, f"Pagamento no valor de {valor} realizada com sucesso! "]
+                    
 
                 else:
-                    print("Data fornecida inválida!")
+                        #print(f"Pagamento no valor de {valor} R$ programado para data {data_corrigida} às {horario_programado}")
+                    return [False, "Data não corresponde"]
 
             else:
-                print("Saldo insuficiente!")
+                return [False, "Saldo insuficiente!"]
 
         except ValueError:
-            print("Data fornecida é inválida!") 
+            return [False, "Data fornecida é inválida!"] 
 
             
     def SolicitarCredito(self):

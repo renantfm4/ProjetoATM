@@ -178,6 +178,17 @@ class App(ctk.CTk):
         self.listar = ctk.CTkButton(self.menu, text="Listar Contas".upper())
         self.listar.grid(row=5, column=0, padx=10, pady=10)
         
+
+    def realizar_registro(self):
+        nome = str(self.nome_usuario.get())
+        cpf = str(self.cpf_usuario.get())
+        telefone = str(self.telefone_usuario.get())
+        endereco = str(self.endereco_usuario.get())
+        saldo = float(self.saldo_usuario.get())
+        senha = str(self.senha_usuario.get())
+        gerente.RegistrarConta(nome,cpf,telefone, endereco,saldo,senha )
+
+
     def registrar(self):
 
         self.menu.place_forget()
@@ -206,8 +217,11 @@ class App(ctk.CTk):
         self.senha_usuario = ctk.CTkEntry(self.registro_menu, width=300, placeholder_text="Senha", corner_radius=15)
         self.senha_usuario.grid(row=6, column=0, padx=10, pady=10) 
 
-        self.confirmar = ctk.CTkButton(self.registro_menu, text="Confirmar".upper(), width=300, corner_radius=15)
+        self.confirmar = ctk.CTkButton(self.registro_menu, text="Confirmar".upper(), width=300, corner_radius=15, command=self.realizar_registro)
         self.confirmar.grid(row=7, column=0, padx=10, pady=10)
+    
+    #def realizar_delete(self):
+
 
     def deletar(self):
 
@@ -306,14 +320,14 @@ class App(ctk.CTk):
         else:
             return self.janela("Saldo insuficiente!")
         
-    def realizar_saque(self):
+    def realizar_deposito(self):
         valor = float(self.digito_deposito.get())
         if conta.depositar(self.usuario, valor):
             return self.janela("Deposito realizado com sucesso!")
         else:
-            return self.janela("Numreo digitado invalido  ")
+            return self.janela("Número digitado invalido!")
         
-    
+
 
     def saque(self):
 
@@ -367,7 +381,9 @@ class App(ctk.CTk):
         self.enter = ctk.CTkButton(self.credito_botao, text="OK", font=("Arial", 20), width=50, height=50, command = self.realizar_deposito)
         self.enter.grid(row=6, column=1, padx=(10,2), pady=10, sticky="w")
 
-        
+    
+  
+
     def pagamento_programado(self):
 
         self.menu_user.place_forget()
@@ -383,11 +399,9 @@ class App(ctk.CTk):
         self.valor_pagamento = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira o valor do pagamento", corner_radius=15)
         self.valor_pagamento.grid(row=1, column=0, padx=10, pady=10) 
 
-        self.data_credito = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira a data do pagamento", corner_radius=15)
+        self.data_credito = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira a data do pagamento (no formato 'DD-MM-AAAA')", corner_radius=15)
         self.data_credito.grid(row=2, column=0, padx=10, pady=10) 
 
-        self.hora_pagamento = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira a hora do pagamento", corner_radius=15)
-        self.hora_pagamento.grid(row=2, column=0, padx=10, pady=(0,120)) 
 
         self.lab_teste = ctk.CTkLabel(self.credito_menu, text="Saldo: ", font=("Arial", 20))
         self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
@@ -398,41 +412,17 @@ class App(ctk.CTk):
         self.credito_botao = ctk.CTkFrame(self, width=320, height=250)
         self.credito_botao.place(x=500, y=16)
         
-        self.um = ctk.CTkButton(self.credito_botao, text="1", font=("Arial", 20), width=50, height=50)
-        self.um.grid(row=1, column=0, padx=(10,2), pady=5, sticky="w")
-
-        self.dois = ctk.CTkButton(self.credito_botao, text="2", font=("Arial", 20), width=50, height=50)
-        self.dois.grid(row=1, column=1, padx=(10,2), pady=10, sticky="w")
-
-        self.tres = ctk.CTkButton(self.credito_botao, text="3", font=("Arial", 20), width=50, height=50)
-        self.tres.grid(row=1, column=2, padx=(10,2), pady=10, sticky="w")
-
-        self.quatro = ctk.CTkButton(self.credito_botao, text="4", font=("Arial", 20), width=50, height=50)
-        self.quatro.grid(row=2, column=0, padx=(10,2), pady=10, sticky="w")
-
-        self.cinco = ctk.CTkButton(self.credito_botao, text="5", font=("Arial", 20), width=50, height=50)
-        self.cinco.grid(row=2, column=1, padx=(10,2), pady=10, sticky="w")
-
-        self.seis = ctk.CTkButton(self.credito_botao, text="6", font=("Arial", 20), width=50, height=50)
-        self.seis.grid(row=2, column=2, padx=(10,2), pady=10, sticky="w")
-
-        self.sete = ctk.CTkButton(self.credito_botao, text="7", font=("Arial", 20), width=50, height=50)
-        self.sete.grid(row=5, column=0, padx=(10,2), pady=10, sticky="w")
-
-        self.oito = ctk.CTkButton(self.credito_botao, text="8", font=("Arial", 20), width=50, height=50)
-        self.oito.grid(row=5, column=1, padx=(10,2), pady=10, sticky="w")
 
 
-        self.zero = ctk.CTkButton(self.credito_botao, text="0", font=("Arial", 20), width=50, height=50)
-        self.zero.grid(row=6, column=0, padx=(10,2), pady=10, sticky="w")
-
-        self.enter = ctk.CTkButton(self.credito_botao, text="OK", font=("Arial", 20), width=50, height=50)
+        self.enter = ctk.CTkButton(self.credito_botao, text="OK", font=("Arial", 20), width=50, height=50, command=self.realizar_programado)
         self.enter.grid(row=6, column=1, padx=(10,2), pady=10, sticky="w")
 
-        self.nove = ctk.CTkButton(self.credito_botao, text="9", font=("Arial", 20), width=50, height=50)
-        self.nove.grid(row=5, column=2, padx=(10,2), pady=10, sticky="w")
-
-    
+    def realizar_programado(self):
+        valor = float(self.valor_pagamento.get())
+        data = str(self.data_credito.get())
+        conta.PagamentoProgramado(self.usuario, valor, data)
+        return self.janela(conta.PagamentoProgramado(self.usuario, valor, data)[1])
+     
     def credito(self):
 
         self.menu_user.place_forget()

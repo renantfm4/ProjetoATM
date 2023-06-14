@@ -1,11 +1,7 @@
-import json
-with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json", "r") as arquivo:
-    dados = json.load(arquivo)
-
-x = input()
-switch = {
-            "1":"Foi um",
-            "2":"Foi dois",
-            "3":"Foi tres",
-                      }
-print(switch["1"])
+  def realizar_programado(self):
+        valor = float(self.valor_pagamento.get())
+        data = str(self.data_credito.get())
+        if conta.PagamentoProgramado(self.usuario, valor, data):
+            return self.janela(conta.PagamentoProgramado(self.usuario, valor, data))
+        else:
+            return self.janela(conta.PagamentoProgramado(self.usuario, valor, data))
