@@ -420,8 +420,11 @@ class App(ctk.CTk):
     def realizar_programado(self):
         valor = float(self.valor_pagamento.get())
         data = str(self.data_credito.get())
-        conta.PagamentoProgramado(self.usuario, valor, data)
-        return self.janela(conta.PagamentoProgramado(self.usuario, valor, data)[1])
+        if conta.PagamentoProgramado(self.usuario, valor, data):
+           return self.janela(conta.PagamentoProgramado(self.usuario, valor, data)[1])
+        else:
+
+           return self.janela(conta.PagamentoProgramado(self.usuario, valor, data)[1])
      
     def credito(self):
 

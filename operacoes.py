@@ -2,7 +2,7 @@ from datetime import datetime,date
 
 import json
 
-with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json", "r") as arquivo:
+with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json", "r") as arquivo:
     dados = json.load(arquivo)
 
 
@@ -22,7 +22,7 @@ class Operacoes():
             atualizar = {"saldo":saldo}
             dados[index].update(atualizar)
 
-            carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+            carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
             json.dump(dados, carregar_arquivo, indent=6)
 
             return True
@@ -37,7 +37,7 @@ class Operacoes():
             atualizar = {"saldo":saldo}
             dados[index].update(atualizar)
 
-            carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+            carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
             json.dump(dados, carregar_arquivo, indent=6)
 
             return True
@@ -57,16 +57,16 @@ class Operacoes():
 
                 if data_programada > data_atual:
                     data_corrigida = data_programada.strftime("%d-%m-%Y")
-                    add_prog = {"Programados":[saldo, data_programada]}
-                               
-                    dados[index].update(add_prog)
+                     
+                    atualizar_prog = {"Programado":{valor:data_corrigida}}
+                    dados[index].update(atualizar_prog)
                                 
 
-                    carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+                    carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
                     json.dump(dados, carregar_arquivo, indent=6)
                     
                     
-                    return [True, f"Pagamento no valor de {valor} R$ programado para data {data_programada_str} "]
+                    return [True, f"Pagamento no valor de {valor} R$ programado para data {data_programada} "]
                     
                 elif data_atual == data_programada:
 
@@ -80,7 +80,7 @@ class Operacoes():
                     dados[index].update(atualizar)
                                 
 
-                    carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+                    carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
                     json.dump(dados, carregar_arquivo, indent=6)
                     return [True, f"Pagamento no valor de {valor} realizada com sucesso! "]
                     

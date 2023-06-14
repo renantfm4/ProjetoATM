@@ -2,7 +2,7 @@ from datetime import datetime,date
 import json
 from operacoes import *
 
-with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json", "r") as arquivo:
+with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json", "r") as arquivo:
     dados = json.load(arquivo) 
 
 class Conta(Operacoes):

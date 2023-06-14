@@ -1,10 +1,10 @@
 import json
 
 
-with open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json",  encoding="utf-8") as arquivo:
+with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json",  encoding="utf-8") as arquivo:
             dados = json.load(arquivo)
 
-with open("C:\WORKSPACE\Python\ATM\Banco_gerente.json",  encoding="utf-8") as arquivo1:
+with open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_gerente.json",  encoding="utf-8") as arquivo1:
             dados1 = json.load(arquivo1)
 
 class Gerente():
@@ -20,12 +20,12 @@ class Gerente():
 
         
         # Variavel que direcionára as modificação no arquivo json
-        carregar_arquivo = open("C:\WORKSPACE\Python\ATM\Banco_de_dados.json","w")
+        carregar_arquivo = open("D:\Workspace\Repositório_VS\miniprojeto4\Banco_de_dados.json","w")
 
         
                             
 
-        dados.append({"nome":nome, "cpf":cpf, "telefone":telefone, "endereco":endereco, "saldo":saldo, "senha":senha})
+        dados.append({"nome":nome, "cpf":cpf, "telefone":telefone, "endereco":endereco, "saldo":saldo, "senha":senha, "Programados":"", "Extrado":""})
         
         json.dump(dados, carregar_arquivo, indent=6)
 
