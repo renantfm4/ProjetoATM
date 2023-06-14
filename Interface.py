@@ -238,6 +238,16 @@ class App(ctk.CTk):
 
         self.confirmar = ctk.CTkButton(self.deletar_menu, text="Confirmar".upper(), width=300, corner_radius=15)
         self.confirmar.grid(row=7, column=0, padx=10, pady=10)
+        
+    def listar(self):
+
+        self.menu.place_forget()
+
+        self.listar_menu = ctk.CTkFrame(self, width=350, height=380)
+        self.listar_menu.place(x=130, y=7)
+
+        self.listar_titulo = ctk.CTkLabel(self.listar_menu, text="Contas Listadas", font=("Century Gothic bold", 22))
+        self.listar_titulo.grid(row=0, column=0, padx=175, pady=10)
 
 
     def menu_usuario(self):
@@ -326,6 +336,22 @@ class App(ctk.CTk):
             return self.janela("Deposito realizado com sucesso!")
         else:
             return self.janela("Número digitado invalido!")
+       
+    
+    def extrato(self):
+
+        self.menu_user.place_forget()
+        self.menu_botao.place_forget()
+
+
+        self.extrato_menu = ctk.CTkFrame(self, width=350, height=250)
+        self.extrato_menu.place(x=20, y=15)
+
+        self.extrato_titulo = ctk.CTkLabel(self.extrato_menu, text="Extrato", font=("Century Gothic bold", 22))
+        self.extrato_titulo.grid(row=0, column=0, padx=175, pady=10)
+
+        self.extrair = ctk.CTkButton(self.extrato_menu, text="Realizar Extrato", font=("Arial", 20), width=50, height=50)
+        self.extrair.grid(row=6, column=0, padx=(120,2), pady=10, sticky="w")
         
 
 
