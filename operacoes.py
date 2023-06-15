@@ -13,6 +13,7 @@ class Operacoes():
     def __init__(self):
         self.deposito = 0
         self.saque = 0
+        self.saldo = 0
 
     def sacar(self, index, valor):
         
@@ -59,7 +60,11 @@ class Operacoes():
             return True
         else:
             return False
-
+        
+    def mostrar_saldo(self,index):
+        self.saldo = dados[index].get("saldo")
+        return self.saldo
+    
     def PagamentoProgramado(self,index, valor, data_programada_str):
         try:
             saldo = dados[index].get("saldo")

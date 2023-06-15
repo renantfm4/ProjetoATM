@@ -53,9 +53,9 @@ class Gerente():
 
 
     def ListarContas(self):
-        tela = 0
+        tela = []
         for i in range(len(dados)):
-            tela += dados[i]
+            tela.append(dados[i].get("nome"))
         return tela
 
         
