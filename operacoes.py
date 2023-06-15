@@ -11,11 +11,13 @@ class Operacoes():
     
 
     def __init__(self):
-        extrato = []
+        self.deposito = 0
+        self.saque = 0
 
     def sacar(self, index, valor):
         
         saldo = dados[index].get("saldo")
+        saque = dados[index].get("saque")
         if valor > 0 and valor <= saldo:
             
             saldo -= valor
@@ -25,17 +27,31 @@ class Operacoes():
             carregar_arquivo = open("Banco_de_dados.json","w")
             json.dump(dados, carregar_arquivo, indent=6)
 
+            saque += valor
+            
+            atualizar_saq = {"saque":saque}
+            dados[index].update(atualizar_saq)
             return True
         else:
             return False
-
-    def depositar(self, index, valor):
         
+    def extrato(self, index):
+        saque = dados[index].get("saque")
+        deposito = dados[index].get("deposito")
+        return f"Hoje suas transações totais foram: {saque}R$ em saques e {deposito}R$"
+    
+    def depositar(self, index, valor):
+        deposito = dados[index].get("deposito")
         saldo = dados[index].get("saldo")
         if valor > 0:
             saldo += valor
             atualizar = {"saldo":saldo}
             dados[index].update(atualizar)
+
+            deposito += valor
+            
+            atualizar_dep = {"deposito":deposito}
+            dados[index].update(atualizar_dep)
 
             carregar_arquivo = open("Banco_de_dados.json","w")
             json.dump(dados, carregar_arquivo, indent=6)
@@ -117,18 +133,18 @@ class Operacoes():
             if valor_credito > 0:
                 atualizar_cred = {"credito":{valor_credito:dia_atual}}
                 dados[index].update(atualizar_cred)
+                
+
 
                 carregar_arquivo = open("Banco_de_dados.json","w")
                 json.dump(dados, carregar_arquivo, indent=6)
+                
                 return [True, f"Crédito acrescido com sucesso!, taxa de 10% a.d "]
             else:
                 return [False, f"Crédito requisitado não aceito"]
                     
-            
+    
 
                
         except ValueError:
             print("Data fornecida é inválida!")
-
-op = Operacoes()
-op.verificar_credito(0)

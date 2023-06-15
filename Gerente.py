@@ -42,20 +42,20 @@ class Gerente():
                     carregar_arquivo = open("Banco_de_dados.json","w")
                     dados.pop(i)
                     json.dump(dados, carregar_arquivo, indent=6)
+                    return [True, "Usuário deletado com sucesso!"]
                 else:
-                    print("Usuário não encontrado!, verifique os dados informados")
+                    return[False,"Usuário não encontrado!, verifique os dados informados"]
         except ValueError:
-            print("Dados fornecidos incorretamente!")        
+            return[False, "Dados fornecidos incorretamente!"]        
                  
        
 
 
 
-    def ListarContas():
+    def ListarContas(self):
+        tela = 0
         for i in range(len(dados)):
-            print(dados[i])
-
+            tela += dados[i]
+        return tela
 
         
-gerente1 = Gerente()
-print(gerente1.login_gerente("12","12")[0])

@@ -231,7 +231,15 @@ class App(ctk.CTk):
         self.confirmar = ctk.CTkButton(self.registro_menu, text="Confirmar".upper(), width=300, corner_radius=15, command=self.realizar_registro)
         self.confirmar.grid(row=7, column=0, padx=10, pady=10)
     
-    #def realizar_delete(self):
+    def realizar_delete(self):
+        nome = self.nome_usuario.get()
+        cpf = self.cpf_usuario.get()
+        if gerente.deletarConta(nome, cpf)[0]:
+            return self.janela(gerente.deletarConta(nome,cpf)[1])
+        else:
+            return self.janela(gerente.deletarConta(nome,cpf)[1])
+
+
 
 
     def deletar(self):
@@ -250,7 +258,7 @@ class App(ctk.CTk):
         self.cpf_usuario = ctk.CTkEntry(self.deletar_menu, width=300, placeholder_text="CPF", corner_radius=15)
         self.cpf_usuario.grid(row=2, column=0, padx=10, pady=10) 
 
-        self.confirmar = ctk.CTkButton(self.deletar_menu, text="Confirmar".upper(), width=300, corner_radius=15)
+        self.confirmar = ctk.CTkButton(self.deletar_menu, text="Confirmar".upper(), width=300, corner_radius=15, command=self.realizar_delete)
         self.confirmar.grid(row=7, column=0, padx=10, pady=10)
         
     def listar(self):
@@ -260,7 +268,7 @@ class App(ctk.CTk):
         self.listar_menu = ctk.CTkFrame(self, width=350, height=380)
         self.listar_menu.place(x=130, y=7)
 
-        self.listar_titulo = ctk.CTkLabel(self.listar_menu, text="Contas Listadas", font=("Century Gothic bold", 22))
+        self.listar_titulo = ctk.CTkLabel(self.listar_menu, text=f"{gerente.ListarContas}", font=("Century Gothic bold", 22))
         self.listar_titulo.grid(row=0, column=0, padx=175, pady=10)
 
 
@@ -365,6 +373,8 @@ class App(ctk.CTk):
         else:
             return self.janela("Número digitado invalido!")
        
+    def mostrar_extrato(self):
+        return self.janela(conta.extrato(self.usuario))
     
     def extrato(self):
 
@@ -378,7 +388,7 @@ class App(ctk.CTk):
         self.extrato_titulo = ctk.CTkLabel(self.extrato_menu, text="Extrato", font=("Century Gothic bold", 22))
         self.extrato_titulo.grid(row=0, column=0, padx=175, pady=10)
 
-        self.extrair = ctk.CTkButton(self.extrato_menu, text="Realizar Extrato", font=("Arial", 20), width=50, height=50)
+        self.extrair = ctk.CTkButton(self.extrato_menu, text="Realizar Extrato", font=("Arial", 20), width=50, height=50, command=self.mostrar_extrato)
         self.extrair.grid(row=6, column=0, padx=(120,2), pady=10, sticky="w")
         
 
@@ -511,6 +521,7 @@ class App(ctk.CTk):
             return self.janela(conta.SolicitarCredito(self.usuario, valor)[1])
 
 
+    #def verificar_credito(self):
 
 
 
