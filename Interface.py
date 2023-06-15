@@ -51,7 +51,10 @@ class App(ctk.CTk):
         self.tela_login_usuario)
         self.btn_usuario_sub.grid(row=4, column=0, padx=10, pady=10)
         
-
+    def saldo(self, index):
+        return str(conta.mostrar_saldo(index))
+        
+    
     def tela_login_usuario(self):
 
 
@@ -268,7 +271,7 @@ class App(ctk.CTk):
         self.listar_menu = ctk.CTkFrame(self, width=350, height=380)
         self.listar_menu.place(x=130, y=7)
 
-        self.listar_titulo = ctk.CTkLabel(self.listar_menu, text=f"{gerente.ListarContas}", font=("Century Gothic bold", 22))
+        self.listar_titulo = ctk.CTkLabel(self.listar_menu, text=f"{gerente.ListarContas()}", font=("Century Gothic bold", 22))
         self.listar_titulo.grid(row=0, column=0, padx=175, pady=10)
 
 
@@ -409,7 +412,7 @@ class App(ctk.CTk):
        
         self.digito_saque.grid(row=1, column=0, padx=10, pady=10) 
 
-        self.lab_teste = ctk.CTkLabel(self.registro_menu, text=f"Saldo: ", font=("Arial", 20))
+        self.lab_teste = ctk.CTkLabel(self.registro_menu, text=f"Saldo:{self.saldo(self.usuario)} R$", font=("Arial", 20))
         self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
         
         
@@ -434,7 +437,7 @@ class App(ctk.CTk):
         self.digito_deposito = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira o valor do depósito", corner_radius=15)
         self.digito_deposito.grid(row=1, column=0, padx=10, pady=10) 
 
-        self.lab_teste = ctk.CTkLabel(self.credito_menu, text="Saldo: ", font=("Arial", 20))
+        self.lab_teste = ctk.CTkLabel(self.credito_menu, text=f"Saldo:{self.saldo(self.usuario)} R$", font=("Arial", 20))
         self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
 
 
@@ -467,7 +470,7 @@ class App(ctk.CTk):
         self.data_credito.grid(row=1, column=0, padx=10, pady=(100,0)) 
 
 
-        self.lab_teste = ctk.CTkLabel(self.credito_menu, text="Saldo: ", font=("Arial", 20))
+        self.lab_teste = ctk.CTkLabel(self.credito_menu, text=f"Saldo:{self.saldo(self.usuario)} R$ ", font=("Arial", 20))
         self.lab_teste.grid(row=3, column=0, padx=0, pady=(60,0), sticky="w")
 
         
@@ -502,7 +505,7 @@ class App(ctk.CTk):
         self.valor_credito.grid(row=1, column=0, padx=10, pady=10) 
 
 
-        self.lab_teste = ctk.CTkLabel(self.credito_menu, text="Saldo: ", font=("Arial", 20))
+        self.lab_teste = ctk.CTkLabel(self.credito_menu, text=f"{self.saldo(self.usuario)} R$", font=("Arial", 20))
         self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
 
         self.credito_botao = ctk.CTkFrame(self, width=320, height=250)
