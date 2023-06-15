@@ -365,16 +365,23 @@ class App(ctk.CTk):
     def realizar_saque(self):
         valor = float(self.digito_saque.get())
         if conta.sacar(self.usuario, valor):
-            return self.janela("Saque realizado com sucesso!")
+            return self.janela3("Saque realizado com sucesso!")
         else:
-            return self.janela("Saldo insuficiente!")
+            return self.janela3("Saldo insuficiente!")
+
+    def janela3 (self, mensagem):
+        self.frame_tipo_janela = ctk.CTkFrame(self, width=350, height=380)
+        self.frame_tipo_janela.place(x=205, y=130)
+
+        self.otipo = ctk.CTkLabel(self.frame_tipo_janela, text=f"{mensagem}", font=("Comic Sans MS", 20))
+        self.otipo.grid(row=0, column=0, padx=10, pady=10)
         
     def realizar_deposito(self):
         valor = float(self.digito_deposito.get())
         if conta.depositar(self.usuario, valor):
-            return self.janela("Deposito realizado com sucesso!")
+            return self.janela3("Deposito realizado com sucesso!")
         else:
-            return self.janela("Número digitado invalido!")
+            return self.janela3("Número digitado invalido!")
        
     def mostrar_extrato(self):
         return self.janela(conta.extrato(self.usuario))
@@ -403,7 +410,7 @@ class App(ctk.CTk):
 
 
         self.registro_menu = ctk.CTkFrame(self, width=350, height=250)
-        self.registro_menu.place(x=20, y=15)
+        self.registro_menu.place(x=120, y=15)
 
         self.saque_titulo = ctk.CTkLabel(self.registro_menu, text="Saque", font=("Century Gothic bold", 22))
         self.saque_titulo.grid(row=0, column=0, padx=175, pady=10)
@@ -416,8 +423,12 @@ class App(ctk.CTk):
         self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
         
         
-        self.enter = ctk.CTkButton(self.registro_menu, text="OK", font=("Arial", 20), width=50, height=50, command=self.realizar_saque)
-        self.enter.grid(row=6, column=1, padx=(10,2), pady=10, sticky="w")
+        self.enter = ctk.CTkButton(self.registro_menu, text="OK", font=("Arial", 20), width=200, height=50, command=self.realizar_saque)
+        self.enter.grid(row=6, column=0, padx=(130,0), pady=10, sticky="w")
+
+        self.ponto = ctk.CTkLabel(self.registro_menu, text=".", font=("Arial", 1), width=10, height=10)
+        self.ponto.grid(row=6, column=0, padx=(450,0), pady=10, sticky="w")
+
 
     
 
@@ -429,7 +440,7 @@ class App(ctk.CTk):
 
 
         self.credito_menu = ctk.CTkFrame(self, width=350, height=250)
-        self.credito_menu.place(x=20, y=15)
+        self.credito_menu.place(x=120, y=15)
 
         self.deposito_titulo = ctk.CTkLabel(self.credito_menu, text="Depósito", font=("Century Gothic bold", 22))
         self.deposito_titulo.grid(row=0, column=0, padx=175, pady=10)
@@ -441,12 +452,11 @@ class App(ctk.CTk):
         self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
 
 
-        self.credito_botao = ctk.CTkFrame(self, width=320, height=250)
-        self.credito_botao.place(x=500, y=16)
-        
+        self.enter = ctk.CTkButton(self.credito_menu, text="OK", font=("Arial", 20), width=200, height=50, command=self.realizar_deposito)
+        self.enter.grid(row=6, column=0, padx=(130,0), pady=10, sticky="w")
 
-        self.enter = ctk.CTkButton(self.credito_botao, text="OK", font=("Arial", 20), width=50, height=50, command = self.realizar_deposito)
-        self.enter.grid(row=6, column=1, padx=(10,2), pady=10, sticky="w")
+        self.ponto = ctk.CTkLabel(self.credito_menu, text=".", font=("Arial", 1), width=10, height=10)
+        self.ponto.grid(row=6, column=0, padx=(450,0), pady=10, sticky="w")
 
     
   
@@ -474,7 +484,7 @@ class App(ctk.CTk):
         self.lab_teste.grid(row=3, column=0, padx=0, pady=(60,0), sticky="w")
 
         
-        self.enter = ctk.CTkButton(self.credito_menu, text="OK", font=("Arial", 20), width=200, height=50, command=self.realizar_deposito)
+        self.enter = ctk.CTkButton(self.credito_menu, text="OK", font=("Arial", 20), width=200, height=50, command=self.realizar_programado)
         self.enter.grid(row=6, column=0, padx=(130,0), pady=10, sticky="w")
 
         self.ponto = ctk.CTkLabel(self.credito_menu, text=".", font=("Arial", 1), width=10, height=10)
@@ -484,10 +494,17 @@ class App(ctk.CTk):
         valor = float(self.valor_pagamento.get())
         data = str(self.data_credito.get())
         if conta.PagamentoProgramado(self.usuario, valor, data):
-           return self.janela(conta.PagamentoProgramado(self.usuario, valor, data)[1])
+           return self.janela5(conta.PagamentoProgramado(self.usuario, valor, data)[1])
         else:
 
-           return self.janela(conta.PagamentoProgramado(self.usuario, valor, data)[1])
+           return self.janela5(conta.PagamentoProgramado(self.usuario, valor, data)[1])
+
+    def janela5 (self, mensagem):
+        self.frame_tipo_janela = ctk.CTkFrame(self, width=350, height=380)
+        self.frame_tipo_janela.place(x=125, y=200)
+
+        self.otipo = ctk.CTkLabel(self.frame_tipo_janela, text=f"{mensagem}", font=("Comic Sans MS", 14))
+        self.otipo.grid(row=0, column=0, padx=10, pady=10)
      
     def credito(self):
 
@@ -496,7 +513,7 @@ class App(ctk.CTk):
 
 
         self.credito_menu = ctk.CTkFrame(self, width=350, height=250)
-        self.credito_menu.place(x=20, y=15)
+        self.credito_menu.place(x=130, y=15)
 
         self.credito_titulo = ctk.CTkLabel(self.credito_menu, text="Crédito", font=("Century Gothic bold", 22))
         self.credito_titulo.grid(row=0, column=0, padx=175, pady=10)
@@ -508,20 +525,26 @@ class App(ctk.CTk):
         self.lab_teste = ctk.CTkLabel(self.credito_menu, text=f"{self.saldo(self.usuario)} R$", font=("Arial", 20))
         self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
 
-        self.credito_botao = ctk.CTkFrame(self, width=320, height=250)
-        self.credito_botao.place(x=500, y=16)
-        
+        self.enter = ctk.CTkButton(self.credito_menu, text="OK", font=("Arial", 20), width=200, height=50, command=self.realizar_credito)
+        self.enter.grid(row=6, column=0, padx=(130,0), pady=10, sticky="w")
 
-        self.enter = ctk.CTkButton(self.credito_botao, text="OK", font=("Arial", 20), width=50, height=50, command=self.realizar_credito)
-        self.enter.grid(row=6, column=1, padx=(10,2), pady=10, sticky="w")
+        self.ponto = ctk.CTkLabel(self.credito_menu, text=".", font=("Arial", 1), width=10, height=10)
+        self.ponto.grid(row=6, column=0, padx=(450,0), pady=10, sticky="w")
 
     
     def realizar_credito(self):
         valor = float(self.valor_credito.get())
         if conta.SolicitarCredito(self.usuario, valor)[0]:
-            return self.janela(conta.SolicitarCredito(self.usuario, valor)[1])
+            return self.janela4(conta.SolicitarCredito(self.usuario, valor)[1])
         else:
-            return self.janela(conta.SolicitarCredito(self.usuario, valor)[1])
+            return self.janela4(conta.SolicitarCredito(self.usuario, valor)[1])
+        
+    def janela4 (self, mensagem):
+        self.frame_tipo_janela = ctk.CTkFrame(self, width=350, height=380)
+        self.frame_tipo_janela.place(x=155, y=140)
+
+        self.otipo = ctk.CTkLabel(self.frame_tipo_janela, text=f"{mensagem}", font=("Comic Sans MS", 18))
+        self.otipo.grid(row=0, column=0, padx=10, pady=10)
 
 
     #def verificar_credito(self):
