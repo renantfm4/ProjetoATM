@@ -32,21 +32,28 @@ class App(ctk.CTk):
         
 
     def tipo(self):
-        self.frame_tipo = ctk.CTkFrame(self, width=350, height=380)
+        self.frame_tipo = ctk.CTkFrame(self, width=650, height=680)
         self.frame_tipo.place(x=250, y=80)
 
         self.otipo = ctk.CTkLabel(self.frame_tipo, text="Que tipo você é?", font=("Comic Sans MS", 20))
         self.otipo.grid(row=0, column=0, padx=10, pady=10)
 
+        self.ponto = ctk.CTkLabel(self.frame_tipo, text=".", font=("Arial", 1), width=10, height=10)
+        self.ponto.grid(row=3, column=0, padx=(250,0), pady=10, sticky="w")
+
+        self.ponto2 = ctk.CTkLabel(self.frame_tipo, text=".", font=("Arial", 1), width=10, height=10)
+        self.ponto2.grid(row=5, column=0, padx=0, pady=10, sticky="w")
+
         self.btn_gerente_sub = ctk.CTkButton(self.frame_tipo, text="Gerente".upper(), command=
         self.tela_login_gerente)
-        self.btn_gerente_sub.grid(row=1, column=0, padx=10, pady=10)
+        self.btn_gerente_sub.grid(row=3, column=0, padx=10, pady=10)
         self.btn_usuario_sub = ctk.CTkButton(self.frame_tipo, text="Usuário".upper(), command=
         self.tela_login_usuario)
-        self.btn_usuario_sub.grid(row=3, column=0, padx=10, pady=10)
+        self.btn_usuario_sub.grid(row=4, column=0, padx=10, pady=10)
         
 
     def tela_login_usuario(self):
+
 
         self.frame_tipo.place_forget()
         img = Image.open("login.png")
@@ -54,45 +61,40 @@ class App(ctk.CTk):
         
         photo = ImageTk.PhotoImage(img)
 
-        self.frame_login_usuario = ctk.CTkFrame(self, width=900, height=900)
+        self.frame_login_usuario = ctk.CTkFrame(self, width=900, height=900, fg_color="#0f3c4c")#2292b8
         self.frame_login_usuario.place(x=0, y=0)
+    
         
         self.lb_img = ctk.CTkLabel(self.frame_login_usuario, text=None, image=photo)
         self.lb_img.grid(row=2, column=0, padx=3)
         
-        self.title = ctk.CTkLabel(self.frame_login_usuario, text="Login de Usuário", font=("Comic Sans MS", 20))
+        self.title = ctk.CTkLabel(self.frame_login_usuario, text="Login de Usuário", font=("Impact", 26), text_color="#bee0ec")
         self.title.grid(row=0, column=0, pady=10)
         
-        self.frame_login = ctk.CTkFrame(self, width=350, height=380)
+        self.frame_login = ctk.CTkFrame(self, width=350, height=380, fg_color="#0f3c4c")#6c25be
         self.frame_login.place(x=368, y=80)
 
-        self.lab_title = ctk.CTkLabel(self.frame_login, text="Faça o seu Login", font=("Century Gothic bold", 22))
+        self.lab_title = ctk.CTkLabel(self.frame_login, text="Faça o seu Login", font=("Times New Roman", 22),text_color="#bee0ec")
         self.lab_title.grid(row=1, column=0, padx=10, pady=10)
 
-        self.username_login_entry = tk.Entry(self.frame_login)
+        self.username_login_entry = ctk.CTkEntry(self.frame_login, placeholder_text="CPF")
        
         self.username_login_entry.grid(row=2, column=0, padx=10, pady=10) 
         
 
-        self.senha_login_entry = tk.Entry(self.frame_login,  show="*")
+        self.senha_login_entry = ctk.CTkEntry(self.frame_login, placeholder_text="Senha",  show="*")
         
         self.senha_login_entry.grid(row=3, column=0, padx=10, pady=10)
         
 
 
         self.checkbox_var = tk.IntVar()
-        self.ver_senha = ctk.CTkCheckBox(self.frame_login, text="Clique no checkbox para visualizar a senha", variable=self.checkbox_var, command=lambda: self.senha_login_entry.configure(show="" if self.checkbox_var.get() else "*"))
+        self.ver_senha = ctk.CTkCheckBox(self.frame_login, text="Clique no checkbox para visualizar a senha", variable=self.checkbox_var, command=lambda: self.senha_login_entry.configure(show="" if self.checkbox_var.get() else "*"), font=("Georgia",12))
         self.ver_senha.grid(row=4, column=0, padx=10, pady=10)
 
         self.btn_login_sub = ctk.CTkButton(self.frame_login, text="Login".upper(), width=300, corner_radius=15,
-        command= self.entrada)
+        command= self.entrada, fg_color="#9c77eb", font=("Cambria", 17))
         self.btn_login_sub.grid(row=5, column=0, padx=10, pady=10)
-
-
-    
-
-
-
 
 
 
@@ -105,12 +107,20 @@ class App(ctk.CTk):
         self.otipo = ctk.CTkLabel(self.frame_tipo, text=f"{mensagem}", font=("Comic Sans MS", 20))
         self.otipo.grid(row=0, column=0, padx=10, pady=10)
 
+    
+    def janela2 (self, mensagem):
+        self.frame_tipo_janela = ctk.CTkFrame(self, width=350, height=380)
+        self.frame_tipo_janela.place(x=415, y=30)
+
+        self.otipo = ctk.CTkLabel(self.frame_tipo_janela, text=f"{mensagem}", font=("Comic Sans MS", 20))
+        self.otipo.grid(row=0, column=0, padx=10, pady=10)
+
 
     def entrada(self):
         cpf = str(self.username_login_entry.get())
         senha = str(self.senha_login_entry.get())
         if conta.login(cpf,senha)[0] == False:   
-            return self.janela("Usuário não encontrado")
+            return self.janela2("Usuário não encontrado")
         else:
             self.usuario = conta.login(cpf,senha)[1]
             return self.menu_usuario()
@@ -126,26 +136,27 @@ class App(ctk.CTk):
         
     def tela_login_gerente(self):
 
+
         self.frame_tipo.place_forget()
         img = Image.open("login.png")
         img = img.resize((350, 350))  # Redimensiona a imagem para 200x200 pixels
         
         photo = ImageTk.PhotoImage(img)
 
-        self.frame_login_gerente2 = ctk.CTkFrame(self, width=900, height=900)
+        self.frame_login_gerente2 = ctk.CTkFrame(self, width=900, height=900, fg_color="#0f3c4c")
         self.frame_login_gerente2.place(x=0, y=0)
         
         self.lb_img = ctk.CTkLabel(self.frame_login_gerente2, text=None, image=photo)
         self.lb_img.grid(row=2, column=0, padx=3)
         
-        self.title = ctk.CTkLabel(self.frame_login_gerente2, text="Login de Gerente", font=("Comic Sans MS", 20))
+        self.title = ctk.CTkLabel(self.frame_login_gerente2, text="Login de Gerente", font=("Impact", 26), text_color="#bee0ec")
         self.title.grid(row=0, column=0, pady=10)
 
 
-        self.frame_login_gerente = ctk.CTkFrame(self, width=350, height=380)
+        self.frame_login_gerente = ctk.CTkFrame(self, width=350, height=380, fg_color="#0f3c4c")
         self.frame_login_gerente.place(x=368, y=80)
 
-        self.lab_title = ctk.CTkLabel(self.frame_login_gerente, text="Faça o seu Login", font=("Century Gothic bold", 22))
+        self.lab_title = ctk.CTkLabel(self.frame_login_gerente, text="Faça o seu Login", font=("Times New Roman", 22),text_color="#bee0ec")
         self.lab_title.grid(row=1, column=0, padx=10, pady=10)
 
         self.username_login_entry = ctk.CTkEntry(self.frame_login_gerente, width=300, placeholder_text="Digite seu CPF", corner_radius=15)
@@ -156,12 +167,12 @@ class App(ctk.CTk):
         
 
         self.checkbox_var = tk.IntVar()
-        self.ver_senha = ctk.CTkCheckBox(self.frame_login_gerente, text="Clique no checkbox para visualizar a senha", variable=self.checkbox_var, command=lambda: self.senha_login_entry.configure(show="" if self.checkbox_var.get() else "*"))
+        self.ver_senha = ctk.CTkCheckBox(self.frame_login_gerente, text="Clique no checkbox para visualizar a senha", variable=self.checkbox_var, command=lambda: self.senha_login_entry.configure(show="" if self.checkbox_var.get() else "*"), font=("Georgia",12))
         self.ver_senha.grid(row=4, column=0, padx=10, pady=10)
 
 
         self.btn_login_sub = ctk.CTkButton(self.frame_login_gerente, text="Login".upper(), width=300, corner_radius=15,
-        command=self.entrada_gerente)
+        command=self.entrada_gerente, fg_color="#9c77eb", font=("Cambria", 17))
         self.btn_login_sub.grid(row=5, column=0, padx=10, pady=10)
     
     def menu_gerente(self):
@@ -175,7 +186,7 @@ class App(ctk.CTk):
         self.registrar.grid(row=1, column=0, padx=10, pady=10)
         self.deletar = ctk.CTkButton(self.menu, text="Deletar Usuário".upper(), command=self.deletar)
         self.deletar.grid(row=3, column=0, padx=10, pady=10)
-        self.listar = ctk.CTkButton(self.menu, text="Listar Contas".upper())
+        self.listar = ctk.CTkButton(self.menu, text="Listar Contas".upper(), command=self.listar)
         self.listar.grid(row=5, column=0, padx=10, pady=10)
         
 
@@ -228,13 +239,16 @@ class App(ctk.CTk):
         self.menu.place_forget()
 
         self.deletar_menu = ctk.CTkFrame(self, width=350, height=380)
-        self.deletar_menu.place(x=130, y=7)
+        self.deletar_menu.place(x=130, y=70)
 
         self.deletar_titulo = ctk.CTkLabel(self.deletar_menu, text="Deletar", font=("Century Gothic bold", 22))
         self.deletar_titulo.grid(row=0, column=0, padx=175, pady=10)
 
-        self.selecionar_usuario = ctk.CTkCheckBox(self.deletar_menu, text="*usuario*",)
-        self.selecionar_usuario.grid(row=4, column=0, padx=10, pady=10)
+        self.nome_usuario = ctk.CTkEntry(self.deletar_menu, width=300, placeholder_text="Nome", corner_radius=15)
+        self.nome_usuario.grid(row=1, column=0, padx=10, pady=10) 
+
+        self.cpf_usuario = ctk.CTkEntry(self.deletar_menu, width=300, placeholder_text="CPF", corner_radius=15)
+        self.cpf_usuario.grid(row=2, column=0, padx=10, pady=10) 
 
         self.confirmar = ctk.CTkButton(self.deletar_menu, text="Confirmar".upper(), width=300, corner_radius=15)
         self.confirmar.grid(row=7, column=0, padx=10, pady=10)
@@ -254,6 +268,10 @@ class App(ctk.CTk):
 
         self.frame_login.place_forget()
         self.frame_login_usuario.place_forget()
+        
+    
+
+
 
 
         self.menu_user = ctk.CTkFrame(self, width=350, height=250)
@@ -286,10 +304,11 @@ class App(ctk.CTk):
         self.lab_teste = ctk.CTkLabel(self.menu_user, text="Entre com sua opção:", font=("Arial", 17))
         self.lab_teste.grid(row=1, column=0, padx=0, pady=(205,0), sticky="w")
 
+
         self.menu_botao = ctk.CTkFrame(self, width=320, height=250)
         self.menu_botao.place(x=500, y=16)
         
-        self.um = ctk.CTkButton(self.menu_botao, text="1", font=("Arial", 20), width=50, height=50)
+        self.um = ctk.CTkButton(self.menu_botao, text="1", font=("Arial", 20), width=50, height=50, command=self.extrato)
         self.um.grid(row=1, column=0, padx=(10,2), pady=5, sticky="w")
 
         self.dois = ctk.CTkButton(self.menu_botao, text="2", font=("Arial", 20), width=50, height=50, command=self.saque)
@@ -304,7 +323,7 @@ class App(ctk.CTk):
         self.cinco = ctk.CTkButton(self.menu_botao, text="5", font=("Arial", 20), width=50, height=50, command=self.credito)
         self.cinco.grid(row=2, column=1, padx=(10,2), pady=10, sticky="w")
 
-        self.seis = ctk.CTkButton(self.menu_botao, text="6", font=("Arial", 20), width=50, height=50)
+        self.seis = ctk.CTkButton(self.menu_botao, text="6", font=("Arial", 20), width=50, height=50, command=self.voltar_tela_login_usuario)
         self.seis.grid(row=2, column=2, padx=(10,2), pady=10, sticky="w")
 
         self.sete = ctk.CTkButton(self.menu_botao, text="7", font=("Arial", 20), width=50, height=50)
@@ -322,6 +341,15 @@ class App(ctk.CTk):
 
         self.nove = ctk.CTkButton(self.menu_botao, text="9", font=("Arial", 20), width=50, height=50)
         self.nove.grid(row=5, column=2, padx=(10,2), pady=10, sticky="w")
+
+
+
+    def voltar_tela_login_usuario(self):
+        self.menu_user.place_forget()
+        self.menu_botao.place_forget()
+
+        self.tela_login_usuario()
+
 
     def realizar_saque(self):
         valor = float(self.digito_saque.get())
@@ -417,7 +445,7 @@ class App(ctk.CTk):
 
 
         self.credito_menu = ctk.CTkFrame(self, width=350, height=250)
-        self.credito_menu.place(x=20, y=15)
+        self.credito_menu.place(x=120, y=15)
 
         self.pagamento_titulo = ctk.CTkLabel(self.credito_menu, text="Programado", font=("Century Gothic bold", 22))
         self.pagamento_titulo.grid(row=0, column=0, padx=(0,20), pady=10)
@@ -426,22 +454,18 @@ class App(ctk.CTk):
         self.valor_pagamento.grid(row=1, column=0, padx=10, pady=10) 
 
         self.data_credito = ctk.CTkEntry(self.credito_menu, width=300, placeholder_text="Insira a data do pagamento (no formato 'DD-MM-AAAA')", corner_radius=15)
-        self.data_credito.grid(row=2, column=0, padx=10, pady=10) 
+        self.data_credito.grid(row=1, column=0, padx=10, pady=(100,0)) 
 
 
         self.lab_teste = ctk.CTkLabel(self.credito_menu, text="Saldo: ", font=("Arial", 20))
-        self.lab_teste.grid(row=2, column=0, padx=0, pady=(155,0), sticky="w")
+        self.lab_teste.grid(row=3, column=0, padx=0, pady=(60,0), sticky="w")
 
         
+        self.enter = ctk.CTkButton(self.credito_menu, text="OK", font=("Arial", 20), width=200, height=50, command=self.realizar_deposito)
+        self.enter.grid(row=6, column=0, padx=(130,0), pady=10, sticky="w")
 
-
-        self.credito_botao = ctk.CTkFrame(self, width=320, height=250)
-        self.credito_botao.place(x=500, y=16)
-        
-
-
-        self.enter = ctk.CTkButton(self.credito_botao, text="OK", font=("Arial", 20), width=50, height=50, command=self.realizar_programado)
-        self.enter.grid(row=6, column=1, padx=(10,2), pady=10, sticky="w")
+        self.ponto = ctk.CTkLabel(self.credito_menu, text=".", font=("Arial", 1), width=10, height=10)
+        self.ponto.grid(row=6, column=0, padx=(450,0), pady=10, sticky="w")
 
     def realizar_programado(self):
         valor = float(self.valor_pagamento.get())
