@@ -286,7 +286,7 @@ class App(ctk.CTk):
 
 
         self.menu_user = ctk.CTkFrame(self, width=350, height=250)
-        self.menu_user.place(x=20, y=15)
+        self.menu_user.place(x=20, y=100)
 
         self.lab_titulo = ctk.CTkLabel(self.menu_user, text="Menu", font=("Century Gothic bold", 22))
         self.lab_titulo.grid(row=0, column=0, padx=175, pady=10)
@@ -317,7 +317,7 @@ class App(ctk.CTk):
 
 
         self.menu_botao = ctk.CTkFrame(self, width=320, height=250)
-        self.menu_botao.place(x=500, y=16)
+        self.menu_botao.place(x=500, y=100)
         
         self.um = ctk.CTkButton(self.menu_botao, text="1", font=("Arial", 20), width=50, height=50, command=self.extrato)
         self.um.grid(row=1, column=0, padx=(10,2), pady=5, sticky="w")
