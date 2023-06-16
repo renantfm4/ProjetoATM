@@ -352,12 +352,25 @@ class App(ctk.CTk):
 
         self.nove = ctk.CTkButton(self.menu_botao, text="9", font=("Arial", 20), width=50, height=50)
         self.nove.grid(row=5, column=2, padx=(10,2), pady=10, sticky="w")
+        
+        self.bem_vindo = ctk.CTkFrame(self, width=350, height=50)
+        self.bem_vindo.place(x=200, y=20)
+
+        self.lab_teste = ctk.CTkLabel(self.bem_vindo, text=f"Bem vindo:", font=("Times New Roman", 20))
+        self.lab_teste.grid(row=0, column=0, padx=100, pady=0, sticky="w")
+
+        self.ponto2 = ctk.CTkLabel(self.bem_vindo, text=".", font=("Arial", 1))
+        self.ponto2.grid(row=0, column=0, padx=0, pady=0, sticky="w")
+
+        self.ponto3 = ctk.CTkLabel(self.bem_vindo, text=".", font=("Arial", 1))
+        self.ponto3.grid(row=0, column=0, padx=100, pady=0, sticky="w")
 
 
 
     def voltar_tela_login_usuario(self):
         self.menu_user.place_forget()
         self.menu_botao.place_forget()
+        self.bem_vindo.place_forget()
 
         self.tela_login_usuario()
 
